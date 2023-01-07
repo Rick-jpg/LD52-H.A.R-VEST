@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Threading;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    public delegate void ResetLevel();
+    public static ResetLevel onResetLevel;
     InputHandler inputHandler;
     CharacterController characterController;
 
@@ -76,6 +80,7 @@ public class PlayerController : MonoBehaviour
             JumpingHandling();
         }
         DashHandling();
+
     }
 
     private void ApplyGravity()
@@ -168,6 +173,8 @@ public class PlayerController : MonoBehaviour
         canDash = true;
        
     }
+   
 
     public int Direction { get { return direction; } }
+
 }
