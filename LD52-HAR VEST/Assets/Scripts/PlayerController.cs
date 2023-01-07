@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jumpPower = 3f;
     [SerializeField]
+    private bool jumpInput;
     private bool isJumping;
     [SerializeField]
     private float jumpPressedRemember = 0;
@@ -42,10 +43,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float dashTime = 0.5f;
     [SerializeField]
-    private float dashCooldown = 2f;
-    [SerializeField]
     private bool canDash = true;
     [SerializeField]
+    private bool dashInput;
     private bool isDashing;
 
     [Header("Gravity")]
@@ -80,13 +80,15 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-            if (!isDashing)
+                if (!isDashing)
             {
-                ApplyGravity();
-                MovementHandling();
-                JumpingHandling();
-            }
+               ApplyGravity();
+               MovementHandling();
+               JumpingHandling();
+                if (canDash == false) canDash = true;
+             }
         }
+
         DashHandling();
 
         UpdateAnim();
@@ -105,6 +107,7 @@ public class PlayerController : MonoBehaviour
             velocity = -1f;
             gravityMultiplier = holdJumpGravityMultiplier;
             groundedRemember = groundRememberTime;
+
         }
         else
         {
@@ -115,8 +118,11 @@ public class PlayerController : MonoBehaviour
 
     private void MovementHandling()
     {
-        SetDirection(inputHandler.GetMovement());
-        float xMovement = inputHandler.GetMovement() * movementSpeed;
+        float movementInput = inputHandler.GetMovement();
+        if (movementInput > 0f) movementInput = 1f;
+        if (movementInput < 0f) movementInput = -1f;
+        SetDirection(movementInput);
+        float xMovement = movementInput * movementSpeed;
 
         movement = new Vector3(xMovement, velocity, 0) * Time.deltaTime;
 
@@ -148,12 +154,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        isJumping = inputHandler.GetJumpDown();
-        if (!isJumping) return;
+        jumpInput = inputHandler.GetJumpDown();
+        if (!jumpInput) return;
         if (!isGrounded()) return;
-
+        isJumping = true;
         jumpPressedRemember = jumpPressedRememberTime;
         velocity += jumpPower;
+        isJumping = false;
     }
 
     private bool isGrounded()
@@ -163,8 +170,8 @@ public class PlayerController : MonoBehaviour
 
     private void DashHandling()
     {
-        isDashing = inputHandler.GetDash();
-        if(isDashing && canDash)
+        dashInput = inputHandler.GetJumpDown();
+        if(dashInput && canDash && !isGrounded())
         {
             StartCoroutine(Dash());
         }
@@ -197,11 +204,9 @@ public class PlayerController : MonoBehaviour
             characterController.Move(new Vector3(direction, 0, 0) * dashSpeed * Time.deltaTime);
             yield return null;
         }
-        isDashing = false;
         velocity = savedVelocity;
         gravityMultiplier = 3f;
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
+        isDashing = false;
        
     }
 
