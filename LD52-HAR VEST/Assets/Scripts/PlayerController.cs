@@ -9,14 +9,18 @@ public class PlayerController : MonoBehaviour
 {
     InputHandler inputHandler;
     CharacterController characterController;
+    AttackHandler attackHandler;
+    AnimationManager anim;
 
     [Header("Movement")]
+    bool canMove;
     [SerializeField]
     private float movementSpeed = 5f;
     Vector3 movement = Vector3.zero;
     [SerializeField]
     [Tooltip("Can only be 1 or -1")]
     private int direction = 1;
+    bool isWalking;
 
     [Header("Jumping")]
     [SerializeField]
@@ -61,28 +65,38 @@ public class PlayerController : MonoBehaviour
         tapJumpGravityMultiplier = holdJumpGravityMultiplier * 2;
         inputHandler = GetComponentInChildren<InputHandler>();
         characterController = GetComponent<CharacterController>();
+        attackHandler = GetComponent<AttackHandler>();
+        anim = GetComponent<AnimationManager>();
 
 
         gravityMultiplier = holdJumpGravityMultiplier;
+
+        // Set canMove to true
+        canMove = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isDashing)
+        if (canMove)
         {
-            ApplyGravity();
-            MovementHandling();
-            JumpingHandling();
+            if (!isDashing)
+            {
+                ApplyGravity();
+                MovementHandling();
+                JumpingHandling();
+            }
         }
         DashHandling();
+
+        UpdateAnim();
     }
 
     private void ApplyGravity()
     {
         groundedRemember -= Time.deltaTime;
 
-        if(velocity > 0f && inputHandler.GetJump()== false)
+        if (velocity > 0f && inputHandler.GetJump() == false)
         {
             gravityMultiplier = tapJumpGravityMultiplier;
         }
@@ -96,7 +110,7 @@ public class PlayerController : MonoBehaviour
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
         }
-        
+
     }
 
     private void MovementHandling()
@@ -105,6 +119,16 @@ public class PlayerController : MonoBehaviour
         float xMovement = inputHandler.GetMovement() * movementSpeed;
 
         movement = new Vector3(xMovement, velocity, 0) * Time.deltaTime;
+
+        if (xMovement > 0.01f || xMovement < -0.01f)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
+
         characterController.Move(movement);
     }
 
@@ -146,6 +170,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void UpdateAnim()
+    {
+        anim.SetBool("Grounded", isGrounded());
+        anim.SetBool("Running", isWalking);
+
+        anim.SetBool("Airdashing", isDashing);
+        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
+        //anim.SetBool("Teleporting", );
+
+        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
+    }
+
     private IEnumerator Dash()
     {
         canDash = false;
@@ -154,9 +190,9 @@ public class PlayerController : MonoBehaviour
         velocity = 0;
         gravityMultiplier = 0;
 
-        float startTIme = Time.time;
+        float startTime = Time.time;
 
-        while (Time.time < startTIme + dashTime)
+        while (Time.time < startTime + dashTime)
         {
             characterController.Move(new Vector3(direction, 0, 0) * dashSpeed * Time.deltaTime);
             yield return null;
