@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private float jumpPower = 3f;
     [SerializeField]
     private bool jumpInput;
-    private bool isJumping;
     [SerializeField]
     private float jumpPressedRemember = 0;
     [SerializeField]
@@ -178,6 +177,11 @@ public class PlayerController : MonoBehaviour
         direction = Convert.ToInt32(movement);
     }
 
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+    }
+
     void SetMaximumEnergy()
     {
         maxEnergyCapacity += energyExtraAdded;
@@ -216,10 +220,8 @@ public class PlayerController : MonoBehaviour
         jumpInput = inputHandler.GetJumpDown();
         if (!jumpInput) return;
         if (!isGrounded()) return;
-        isJumping = true;
         jumpPressedRemember = jumpPressedRememberTime;
         velocity += jumpPower;
-        isJumping = false;
     }
 
     private bool isGrounded()

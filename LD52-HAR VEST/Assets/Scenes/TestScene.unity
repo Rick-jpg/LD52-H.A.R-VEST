@@ -1163,7 +1163,7 @@ PrefabInstance:
     - target: {fileID: 5923553179590039057, guid: 523f3061fa136a14398ac2ccb761f9ea,
         type: 3}
       propertyPath: maxEnergyCapacity
-      value: 5
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5923553179590039059, guid: 523f3061fa136a14398ac2ccb761f9ea,
         type: 3}
