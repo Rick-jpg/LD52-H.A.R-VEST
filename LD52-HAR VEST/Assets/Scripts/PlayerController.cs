@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float velocity;
 
+    bool canHandleInput;
+
     void Start()
     {
         tapJumpGravityMultiplier = holdJumpGravityMultiplier * 2;
@@ -166,6 +168,11 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded()
     {
         return characterController.isGrounded;
+    }
+
+    public void ToggleInput(bool inputStatus)
+    {
+        canHandleInput = inputStatus;
     }
 
     private void DashHandling()

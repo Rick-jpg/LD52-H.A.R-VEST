@@ -17,8 +17,4 @@ public class SingleShot : Attack
        newbullet.BulletDirection = attackDirection;
     }
 
-    protected override void ReduceEnergy()
-    {
-        throw new System.NotImplementedException();
-    }
 }
