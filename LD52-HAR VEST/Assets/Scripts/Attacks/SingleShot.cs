@@ -13,6 +13,7 @@ public class SingleShot : Attack
     public override void DoAttack()
     {
        isBeingUsed = true;
+       ReduceEnergy();
        Bullet newbullet = Instantiate(bulletPrefab, bulletSpawn.position, transform.rotation);
        newbullet.BulletDirection = attackDirection;
     }

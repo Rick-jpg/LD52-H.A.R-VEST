@@ -36,20 +36,23 @@ public class AttackHandler : MonoBehaviour
             StartAttack(attacks[0]);
             return;
         }
-        //else if (input.GetExplosionAttack() && !isAttacking)
-        //{
-        //    StartAttack(attacks[1]);
-        //    return;
-        //}
-        //else if (input.GetTeleportAttack() && !isAttacking)
-        //{
-        //    StartAttack(attacks[2]);
-        //    return;
-        //}
+        else if (input.GetExplosionAttack() && !isAttacking)
+        {
+            StartAttack(attacks[1]);
+            return;
+        }
+        else if (input.GetTeleportAttack() && !isAttacking)
+        {
+            StartAttack(attacks[2]);
+            return;
+        }
     }
 
     private void StartAttack(Attack activatedAttack)
     {
+        if (activatedAttack.EnergyCost > player.GetCurrentEnergy())
+            return;
+
         int playerdirection = player.Direction;
         activatedAttack.SetDirection(playerdirection);
         activatedAttack.DoAttack();

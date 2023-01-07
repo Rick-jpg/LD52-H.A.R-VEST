@@ -28,4 +28,5 @@ public abstract class Attack : MonoBehaviour
     }
 
     public bool IsBeingUsed { get; private set; }
+    public int EnergyCost { get { return energyCost; } }
 }

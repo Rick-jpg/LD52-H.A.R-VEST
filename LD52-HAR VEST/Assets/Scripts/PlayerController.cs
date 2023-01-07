@@ -62,6 +62,28 @@ public class PlayerController : MonoBehaviour
 
     bool canHandleInput;
 
+    [Header("Energy")]
+    [SerializeField]
+    private int maxEnergyCapacity = 5;
+    [SerializeField]
+    private int currentEnergy;
+    int energyExtraAdded = 2;
+
+    [SerializeField]
+    Energybar energyBar;
+
+    private void OnEnable()
+    {
+        EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
+        Attack.OnEnergyUsed += DecreaseEnergy;
+    }
+
+    private void OnDisable()
+    {
+        EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
+        Attack.OnEnergyUsed -= DecreaseEnergy;
+    }
+
     void Start()
     {
         tapJumpGravityMultiplier = holdJumpGravityMultiplier * 2;
@@ -72,6 +94,9 @@ public class PlayerController : MonoBehaviour
 
 
         gravityMultiplier = holdJumpGravityMultiplier;
+        currentEnergy = maxEnergyCapacity;
+
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
 
         // Set canMove to true
         canMove = true;
@@ -144,6 +169,31 @@ public class PlayerController : MonoBehaviour
     {
         if (movement == 0) return;
         direction = Convert.ToInt32(movement);
+    }
+
+    void SetMaximumEnergy()
+    {
+        maxEnergyCapacity += energyExtraAdded;
+        currentEnergy = maxEnergyCapacity;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+    }
+
+    public int GetMaximumEnergy()
+    {
+        return maxEnergyCapacity;
+    }
+
+    public int GetCurrentEnergy()
+    {
+        return currentEnergy;
+    }
+
+    void DecreaseEnergy(int amount)
+    {
+        int difference = currentEnergy - amount;
+        if (difference < 0) difference = 0;
+        currentEnergy = difference;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
     }
 
     private void JumpingHandling()
