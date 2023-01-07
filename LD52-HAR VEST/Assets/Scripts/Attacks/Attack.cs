@@ -5,8 +5,10 @@ using UnityEngine;
 
 public abstract class Attack : MonoBehaviour
 {
+    public delegate void EnergyUsed(int amount);
+    public static EnergyUsed OnEnergyUsed;
     [SerializeField]
-    protected float energyCost;
+    protected int energyCost;
     [SerializeField]
     protected float windupTime;
     [SerializeField]
@@ -19,7 +21,10 @@ public abstract class Attack : MonoBehaviour
         attackDirection = dir;
     }
     public abstract void DoAttack();
-    protected abstract void ReduceEnergy();
+    protected void ReduceEnergy()
+    {
+        OnEnergyUsed?.Invoke(energyCost);
+    }
 
     public bool IsBeingUsed { get; private set; }
 }
