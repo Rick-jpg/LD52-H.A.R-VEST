@@ -9,13 +9,6 @@ public class RespawnManager : MonoBehaviour
     bool buttonPressed = false;
     float timer = 0;
     float duration = 0.5f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.R))

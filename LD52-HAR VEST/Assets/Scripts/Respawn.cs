@@ -9,6 +9,7 @@ public class Respawn : MonoBehaviour
 
     public GameObject player;
     public GameObject respawnPoint;
+    public PlayerController playerController;
 
 
     void Update()
@@ -18,8 +19,9 @@ public class Respawn : MonoBehaviour
 
     private void ResetLevel()
     {
+        playerController.SetCanMove(false);
         player.transform.position = respawnPoint.transform.position;
-        Debug.Log("uh resetting lol");
+        playerController.SetCanMove(true);
     }
 
     private void OnEnable()
