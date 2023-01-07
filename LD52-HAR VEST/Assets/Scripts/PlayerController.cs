@@ -101,8 +101,11 @@ public class PlayerController : MonoBehaviour
 
     private void MovementHandling()
     {
-        SetDirection(inputHandler.GetMovement());
-        float xMovement = inputHandler.GetMovement() * movementSpeed;
+        float movementInput = inputHandler.GetMovement();
+        if (movementInput > 0f) movementInput = 1f;
+        if (movementInput < 0f) movementInput = -1f;
+        SetDirection(movementInput);
+        float xMovement = movementInput * movementSpeed;
 
         movement = new Vector3(xMovement, velocity, 0) * Time.deltaTime;
         characterController.Move(movement);
