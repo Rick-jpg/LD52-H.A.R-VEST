@@ -10,6 +10,8 @@ public class AttackHandler : MonoBehaviour
     InputHandler input;
     PlayerController player;
 
+    bool isAttacking;
+
     private void Start()
     {
         input = GetComponentInChildren<InputHandler>();
@@ -18,17 +20,28 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        if(input.GetSingleAttack() && attacks[0].IsBeingUsed == false)
+        for (int i = 0; i < attacks.Length; i++)
+        {
+            if (attacks[i].IsBeingUsed)
+            {
+                isAttacking = true;
+                break;
+            }
+
+            isAttacking = false;
+        }
+
+        if(input.GetSingleAttack() && !isAttacking)
         {
             StartAttack(attacks[0]);
             return;
         }
-        //else if (input.GetExplosionAttack() && attacks[1].IsBeingUsed == false)
+        //else if (input.GetExplosionAttack() && !isAttacking)
         //{
         //    StartAttack(attacks[1]);
         //    return;
         //}
-        //else if (input.GetTeleportAttack() && attacks[2].IsBeingUsed == false)
+        //else if (input.GetTeleportAttack() && !isAttacking)
         //{
         //    StartAttack(attacks[2]);
         //    return;

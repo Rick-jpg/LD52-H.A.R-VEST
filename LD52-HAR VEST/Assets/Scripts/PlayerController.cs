@@ -80,13 +80,13 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-                if (!isDashing)
+            if (!isDashing)
             {
                ApplyGravity();
                MovementHandling();
                JumpingHandling();
-                if (canDash == false) canDash = true;
-             }
+               if (canDash == false) canDash = true;
+            }
         }
 
         DashHandling();

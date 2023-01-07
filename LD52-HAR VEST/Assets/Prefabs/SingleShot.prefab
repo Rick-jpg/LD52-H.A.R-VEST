@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8650302930112729577
+--- !u!1 &530130049208318825
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8650302930112729583}
-  - component: {fileID: 8650302930112729582}
+  - component: {fileID: 530130049208318831}
+  - component: {fileID: 530130049208318830}
   m_Layer: 0
   m_Name: SingleShot
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8650302930112729583
+--- !u!4 &530130049208318831
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8650302930112729577}
+  m_GameObject: {fileID: 530130049208318825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -32,19 +32,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8650302930112729582
+--- !u!114 &530130049208318830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8650302930112729577}
+  m_GameObject: {fileID: 530130049208318825}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12c4a554fc8ea13469da464a72438214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   energyCost: 0
+  windupTime: 0
   restoreTime: 2
   bulletPrefab: {fileID: 3496592780935271028, guid: 77ef52b4d80921b4eaca4278bf95faf1,
     type: 3}
+  bulletSpawn: {fileID: 0}

@@ -11,9 +11,11 @@ public class Bullet : MonoBehaviour
     private float spawnTime = 6f;
     private float spawnTimer;
     Vector3 movement;
-    private void OnEnable()
+    private void Start()
     {
-        if (this.bulletDirection == 1)
+        Debug.Log(bulletDirection);
+
+        if (bulletDirection == 1)
         {
             movement = Vector3.right;
         }
@@ -33,5 +35,5 @@ public class Bullet : MonoBehaviour
         spawnTimer += Time.deltaTime;
     }
 
-    public int BulletDirection{ get; set; }
+    public int BulletDirection { set { bulletDirection = value; } }
 }

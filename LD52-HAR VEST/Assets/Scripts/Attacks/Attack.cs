@@ -18,6 +18,7 @@ public abstract class Attack : MonoBehaviour
     {
         attackDirection = dir;
     }
+
     public abstract void DoAttack();
     protected abstract void ReduceEnergy();
 
