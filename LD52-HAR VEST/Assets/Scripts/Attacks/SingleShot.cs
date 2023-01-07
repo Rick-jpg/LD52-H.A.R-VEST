@@ -7,15 +7,25 @@ public class SingleShot : Attack
     [SerializeField]
     private Bullet bulletPrefab;
 
+    [SerializeField]
+    Transform bulletSpawn;
+
     public override void DoAttack()
     {
-        isBeingUsed = true;
-       Bullet newbullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-       newbullet.BulletDirection = attackDirection;
+       isBeingUsed = true;
+       ReduceEnergy();
+        StartCoroutine(AttackTime(startupTime, restoreTime));
     }
 
-    protected override void ReduceEnergy()
+    IEnumerator AttackTime(float startupTime, float restoreTime)
     {
-        throw new System.NotImplementedException();
+        yield return new WaitForSeconds(startupTime);
+
+        Bullet newbullet = Instantiate(bulletPrefab, bulletSpawn.position, transform.rotation);
+        newbullet.BulletDirection = attackDirection;
+
+        yield return new WaitForSeconds(restoreTime);
+
+        isBeingUsed = false;
     }
 }

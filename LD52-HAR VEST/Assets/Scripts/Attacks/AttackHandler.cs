@@ -10,6 +10,8 @@ public class AttackHandler : MonoBehaviour
     InputHandler input;
     PlayerController player;
 
+    bool isAttacking;
+
     private void Start()
     {
         input = GetComponentInChildren<InputHandler>();
@@ -18,17 +20,32 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        if(input.GetSingleAttack() && attacks[0].IsBeingUsed == false)
+        if (!isAttacking)
+        {
+            for (int i = 0; i < attacks.Length; i++)
+            {
+                if (attacks[i].IsBeingUsed)
+                {
+                    isAttacking = true;
+                    Debug.Log("attacking " + i);
+                    break;
+                }
+
+                isAttacking = false;
+            }
+        }
+
+        if(input.GetSingleAttack() && !isAttacking)
         {
             StartAttack(attacks[0]);
             return;
         }
-        //else if (input.GetExplosionAttack() && attacks[1].IsBeingUsed == false)
-        //{
-        //    StartAttack(attacks[1]);
-        //    return;
-        //}
-        //else if (input.GetTeleportAttack() && attacks[2].IsBeingUsed == false)
+        else if (input.GetLightningAttack() && !isAttacking)
+        {
+            StartAttack(attacks[1]);
+            return;
+        }
+        //else if (input.GetTeleportAttack() && !isAttacking)
         //{
         //    StartAttack(attacks[2]);
         //    return;
@@ -37,6 +54,9 @@ public class AttackHandler : MonoBehaviour
 
     private void StartAttack(Attack activatedAttack)
     {
+        if (activatedAttack.EnergyCost > player.GetCurrentEnergy())
+            return;
+
         int playerdirection = player.Direction;
         activatedAttack.SetDirection(playerdirection);
         activatedAttack.DoAttack();

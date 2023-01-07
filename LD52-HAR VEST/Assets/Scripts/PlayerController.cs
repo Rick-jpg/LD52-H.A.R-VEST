@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     AttackHandler attackHandler;
     AnimationManager anim;
+    [SerializeField]
+    GameObject rotatorObject;
 
     [Header("Movement")]
     bool canMove;
@@ -27,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private float jumpPower = 3f;
     [SerializeField]
     private bool jumpInput;
-    private bool isJumping;
     [SerializeField]
     private float jumpPressedRemember = 0;
     [SerializeField]
@@ -60,6 +61,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float velocity;
 
+    bool canHandleInput;
+
+    [Header("Energy")]
+    [SerializeField]
+    private int maxEnergyCapacity = 5;
+    [SerializeField]
+    private int currentEnergy;
+    int energyExtraAdded = 2;
+
+    [SerializeField]
+    Energybar energyBar;
+
+    private void OnEnable()
+    {
+        EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
+        Attack.OnEnergyUsed += DecreaseEnergy;
+    }
+
+    private void OnDisable()
+    {
+        EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
+        Attack.OnEnergyUsed -= DecreaseEnergy;
+    }
+
     void Start()
     {
         tapJumpGravityMultiplier = holdJumpGravityMultiplier * 2;
@@ -70,6 +95,9 @@ public class PlayerController : MonoBehaviour
 
 
         gravityMultiplier = holdJumpGravityMultiplier;
+        currentEnergy = maxEnergyCapacity;
+
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
 
         // Set canMove to true
         canMove = true;
@@ -80,18 +108,24 @@ public class PlayerController : MonoBehaviour
     {
         if (canMove)
         {
-                if (!isDashing)
+            if (!isDashing)
             {
                ApplyGravity();
                MovementHandling();
                JumpingHandling();
-                if (canDash == false) canDash = true;
-             }
+
+                if (isGrounded())
+                    if (canDash == false) canDash = true;
+            }
         }
 
         DashHandling();
 
         UpdateAnim();
+
+        // Set scale the same as direction;
+        Vector3 scale = rotatorObject.transform.localScale;
+        rotatorObject.transform.localScale = new Vector3(direction, scale.y, scale.z);
     }
 
     private void ApplyGravity()
@@ -113,7 +147,6 @@ public class PlayerController : MonoBehaviour
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
         }
-
     }
 
     private void MovementHandling()
@@ -144,6 +177,36 @@ public class PlayerController : MonoBehaviour
         direction = Convert.ToInt32(movement);
     }
 
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
+    }
+
+    void SetMaximumEnergy()
+    {
+        maxEnergyCapacity += energyExtraAdded;
+        currentEnergy = maxEnergyCapacity;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+    }
+
+    public int GetMaximumEnergy()
+    {
+        return maxEnergyCapacity;
+    }
+
+    public int GetCurrentEnergy()
+    {
+        return currentEnergy;
+    }
+
+    void DecreaseEnergy(int amount)
+    {
+        int difference = currentEnergy - amount;
+        if (difference < 0) difference = 0;
+        currentEnergy = difference;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+    }
+
     private void JumpingHandling()
     {
         jumpPressedRemember -= Time.deltaTime;
@@ -157,10 +220,8 @@ public class PlayerController : MonoBehaviour
         jumpInput = inputHandler.GetJumpDown();
         if (!jumpInput) return;
         if (!isGrounded()) return;
-        isJumping = true;
         jumpPressedRemember = jumpPressedRememberTime;
         velocity += jumpPower;
-        isJumping = false;
     }
 
     private bool isGrounded()
@@ -168,13 +229,9 @@ public class PlayerController : MonoBehaviour
         return characterController.isGrounded;
     }
 
-    private void DashHandling()
+    public void ToggleInput(bool inputStatus)
     {
-        dashInput = inputHandler.GetJumpDown();
-        if(dashInput && canDash && !isGrounded())
-        {
-            StartCoroutine(Dash());
-        }
+        canHandleInput = inputStatus;
     }
 
     void UpdateAnim()
@@ -187,6 +244,15 @@ public class PlayerController : MonoBehaviour
         //anim.SetBool("Teleporting", );
 
         anim.SetFloat("VerticalVelocity", characterController.velocity.y);
+    }
+
+    private void DashHandling()
+    {
+        dashInput = inputHandler.GetJumpDown();
+        if (dashInput && canDash && !isGrounded())
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     private IEnumerator Dash()
@@ -207,7 +273,6 @@ public class PlayerController : MonoBehaviour
         velocity = savedVelocity;
         gravityMultiplier = 3f;
         isDashing = false;
-       
     }
 
     public int Direction { get { return direction; } }

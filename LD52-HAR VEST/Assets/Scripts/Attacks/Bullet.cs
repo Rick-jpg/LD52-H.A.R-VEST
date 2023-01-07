@@ -6,20 +6,35 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField]
     private float speed;
+    bool horizontal = true;
     private int bulletDirection;
     [SerializeField]
-    private float spawnTime = 6f;
+    private float spawnTime = 4f;
     private float spawnTimer;
     Vector3 movement;
-    private void OnEnable()
+    private void Start()
     {
-        if (this.bulletDirection == 1)
+        if (bulletDirection == 1)
         {
-            movement = Vector3.right;
+            if (horizontal)
+            {
+                movement = Vector3.right;
+            }
+            else
+            {
+                movement = Vector3.up;
+            }
         }
         else
         {
-            movement = Vector3.left;
+            if (horizontal)
+            {
+                movement = Vector3.left;
+            }
+            else
+            {
+                movement = Vector3.down;
+            }
         }
     }
     private void Update()
@@ -33,5 +48,6 @@ public class Bullet : MonoBehaviour
         spawnTimer += Time.deltaTime;
     }
 
-    public int BulletDirection{ get; set; }
+    public int BulletDirection { set { bulletDirection = value; } }
+    public bool Horizontal { set { horizontal = value; } }
 }

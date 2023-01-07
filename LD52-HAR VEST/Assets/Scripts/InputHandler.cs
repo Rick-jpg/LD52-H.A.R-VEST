@@ -28,9 +28,10 @@ public class InputHandler : MonoBehaviour
     {
         return Input.GetButtonDown("SingleShot");
     }
-    public bool GetExplosionAttack()
+
+    public bool GetLightningAttack()
     {
-        return true;
+        return Input.GetButtonDown("LightningShot");
     }
 
     public bool GetTeleportAttack()
