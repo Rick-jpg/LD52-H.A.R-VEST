@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private bool isDashing;
 
     [Header("Gravity")]
+    bool doGravity = true;
     [SerializeField]
     float gravityMultiplier = 0f;
     [SerializeField]
@@ -99,8 +100,9 @@ public class PlayerController : MonoBehaviour
 
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
 
-        // Set canMove to true
+        // Set some variables to true
         canMove = true;
+        doGravity = true;
     }
 
     // Update is called once per frame
@@ -110,7 +112,8 @@ public class PlayerController : MonoBehaviour
         {
             if (!isDashing)
             {
-               ApplyGravity();
+               if (doGravity)
+                    ApplyGravity();
                MovementHandling();
                JumpingHandling();
 
@@ -146,6 +149,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
+        }
+    }
+
+    public void EnableGravity(bool enable)
+    {
+        doGravity = enable;
+
+        if (!enable)
+        {
+            gravityMultiplier = 3f;
         }
     }
 
@@ -234,18 +247,6 @@ public class PlayerController : MonoBehaviour
         canHandleInput = inputStatus;
     }
 
-    void UpdateAnim()
-    {
-        anim.SetBool("Grounded", isGrounded());
-        anim.SetBool("Running", isWalking);
-
-        anim.SetBool("Airdashing", isDashing);
-        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
-        //anim.SetBool("Teleporting", );
-
-        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
-    }
-
     private void DashHandling()
     {
         dashInput = inputHandler.GetJumpDown();
@@ -262,6 +263,7 @@ public class PlayerController : MonoBehaviour
         float savedVelocity = velocity;
         velocity = 0;
         gravityMultiplier = 0;
+        
 
         float startTime = Time.time;
 
@@ -273,6 +275,19 @@ public class PlayerController : MonoBehaviour
         velocity = savedVelocity;
         gravityMultiplier = 3f;
         isDashing = false;
+    }
+
+    void UpdateAnim()
+    {
+        anim.SetBool("Grounded", isGrounded());
+        anim.SetBool("Running", isWalking);
+
+        anim.SetBool("Airdashing", isDashing);
+        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
+        anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
+        //anim.SetBool("Teleporting", );
+
+        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
     }
 
     public int Direction { get { return direction; } }

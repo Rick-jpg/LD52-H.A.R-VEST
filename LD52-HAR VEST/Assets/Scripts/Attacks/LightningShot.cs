@@ -23,6 +23,7 @@ public class LightningShot : Attack
     IEnumerator AttackTime(float startupTime, float restoreTime)
     {
         player.SetCanMove(false);
+        player.EnableGravity(false);
 
         yield return new WaitForSeconds(startupTime);
 
@@ -46,5 +47,6 @@ public class LightningShot : Attack
 
         isBeingUsed = false;
         player.SetCanMove(true);
+        player.EnableGravity(true);
     }
 }

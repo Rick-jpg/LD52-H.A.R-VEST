@@ -20,22 +20,19 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!isAttacking)
+        for (int i = 0; i < attacks.Length; i++)
         {
-            for (int i = 0; i < attacks.Length; i++)
+            if (attacks[i].IsBeingUsed)
             {
-                if (attacks[i].IsBeingUsed)
-                {
-                    isAttacking = true;
-                    Debug.Log("attacking " + i);
-                    break;
-                }
-
-                isAttacking = false;
+                isAttacking = true;
+                Debug.Log("attacking " + i);
+                break;
             }
+
+            isAttacking = false;
         }
 
-        if(input.GetSingleAttack() && !isAttacking)
+        if (input.GetSingleAttack() && !isAttacking)
         {
             StartAttack(attacks[0]);
             return;
