@@ -168,4 +168,6 @@ public class PlayerController : MonoBehaviour
         canDash = true;
        
     }
+
+    public int Direction { get { return direction; } }
 }
