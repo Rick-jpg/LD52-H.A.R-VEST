@@ -25,6 +25,7 @@ public class AttackHandler : MonoBehaviour
             if (attacks[i].IsBeingUsed)
             {
                 isAttacking = true;
+                Debug.Log("attacking " + i);
                 break;
             }
 
@@ -36,16 +37,16 @@ public class AttackHandler : MonoBehaviour
             StartAttack(attacks[0]);
             return;
         }
-        else if (input.GetExplosionAttack() && !isAttacking)
-        {
-            StartAttack(attacks[1]);
-            return;
-        }
-        else if (input.GetTeleportAttack() && !isAttacking)
-        {
-            StartAttack(attacks[2]);
-            return;
-        }
+        //else if (input.GetExplosionAttack() && !isAttacking)
+        //{
+        //    StartAttack(attacks[1]);
+        //    return;
+        //}
+        //else if (input.GetTeleportAttack() && !isAttacking)
+        //{
+        //    StartAttack(attacks[2]);
+        //    return;
+        //}
     }
 
     private void StartAttack(Attack activatedAttack)

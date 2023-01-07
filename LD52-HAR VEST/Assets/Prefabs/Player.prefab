@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2487b8cd413260a4ab1a1e24d2602aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotatorObject: {fileID: 7340794409406481702}
   movementSpeed: 3
   direction: 1
   jumpPower: 5
@@ -115,6 +116,9 @@ MonoBehaviour:
   holdJumpGravityMultiplier: 1.5
   tapJumpGravityMultiplier: 0
   velocity: 0
+  maxEnergyCapacity: 5
+  currentEnergy: 0
+  energyBar: {fileID: 0}
 --- !u!114 &5923553179590039056
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     AttackHandler attackHandler;
     AnimationManager anim;
+    [SerializeField]
+    GameObject rotatorObject;
 
     [Header("Movement")]
     bool canMove;
@@ -112,13 +114,19 @@ public class PlayerController : MonoBehaviour
                ApplyGravity();
                MovementHandling();
                JumpingHandling();
-               if (canDash == false) canDash = true;
+
+                if (isGrounded())
+                    if (canDash == false) canDash = true;
             }
         }
 
         DashHandling();
 
         UpdateAnim();
+
+        // Set scale the same as direction;
+        Vector3 scale = rotatorObject.transform.localScale;
+        rotatorObject.transform.localScale = new Vector3(direction, scale.y, scale.z);
     }
 
     private void ApplyGravity()
@@ -140,7 +148,6 @@ public class PlayerController : MonoBehaviour
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
         }
-
     }
 
     private void MovementHandling()
@@ -225,15 +232,6 @@ public class PlayerController : MonoBehaviour
         canHandleInput = inputStatus;
     }
 
-    private void DashHandling()
-    {
-        dashInput = inputHandler.GetJumpDown();
-        if(dashInput && canDash && !isGrounded())
-        {
-            StartCoroutine(Dash());
-        }
-    }
-
     void UpdateAnim()
     {
         anim.SetBool("Grounded", isGrounded());
@@ -244,6 +242,15 @@ public class PlayerController : MonoBehaviour
         //anim.SetBool("Teleporting", );
 
         anim.SetFloat("VerticalVelocity", characterController.velocity.y);
+    }
+
+    private void DashHandling()
+    {
+        dashInput = inputHandler.GetJumpDown();
+        if (dashInput && canDash && !isGrounded())
+        {
+            StartCoroutine(Dash());
+        }
     }
 
     private IEnumerator Dash()
@@ -264,7 +271,6 @@ public class PlayerController : MonoBehaviour
         velocity = savedVelocity;
         gravityMultiplier = 3f;
         isDashing = false;
-       
     }
 
     public int Direction { get { return direction; } }

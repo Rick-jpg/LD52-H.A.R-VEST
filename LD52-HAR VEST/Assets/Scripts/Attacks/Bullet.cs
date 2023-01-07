@@ -13,8 +13,6 @@ public class Bullet : MonoBehaviour
     Vector3 movement;
     private void Start()
     {
-        Debug.Log(bulletDirection);
-
         if (bulletDirection == 1)
         {
             movement = Vector3.right;
