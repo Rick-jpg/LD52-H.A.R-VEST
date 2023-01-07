@@ -41,4 +41,9 @@ public class AttackHandler : MonoBehaviour
         activatedAttack.SetDirection(playerdirection);
         activatedAttack.DoAttack();
     }
+
+    public bool GetAttackisBeingUsed(int attack)
+    {
+        return attacks[attack].IsBeingUsed;
+    }
 }
