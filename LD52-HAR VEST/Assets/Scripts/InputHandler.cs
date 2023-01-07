@@ -13,4 +13,14 @@ public class InputHandler : MonoBehaviour
     {
         return Input.GetButton("Jump");
     }
+
+    public bool GetJumpDown()
+    {
+        return Input.GetButtonDown("Jump");
+    }
+
+    public bool GetDash()
+    {
+        return Input.GetButtonDown("Fire1");
+    }
 }
