@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyCost: 1
-  windupTime: 0
-  restoreTime: 2
+  startupTime: 0
+  restoreTime: 0.2
   bulletPrefab: {fileID: 3496592780935271028, guid: 77ef52b4d80921b4eaca4278bf95faf1,
     type: 3}
   bulletSpawn: {fileID: 0}

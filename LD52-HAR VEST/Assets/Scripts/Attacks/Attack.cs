@@ -10,7 +10,7 @@ public abstract class Attack : MonoBehaviour
     [SerializeField]
     protected int energyCost;
     [SerializeField]
-    protected float windupTime;
+    protected float startupTime;
     [SerializeField]
     protected float restoreTime;
     protected bool isBeingUsed;
@@ -27,6 +27,6 @@ public abstract class Attack : MonoBehaviour
         OnEnergyUsed?.Invoke(energyCost);
     }
 
-    public bool IsBeingUsed { get; private set; }
+    public bool IsBeingUsed { get { return isBeingUsed; } private set { ; } }
     public int EnergyCost { get { return energyCost; } }
 }
