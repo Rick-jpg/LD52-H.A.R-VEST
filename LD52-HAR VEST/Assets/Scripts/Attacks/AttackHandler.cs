@@ -23,16 +23,16 @@ public class AttackHandler : MonoBehaviour
             StartAttack(attacks[0]);
             return;
         }
-        else if (input.GetExplosionAttack() && attacks[1].IsBeingUsed == false)
-        {
-            StartAttack(attacks[1]);
-            return;
-        }
-        else if (input.GetTeleportAttack() && attacks[2].IsBeingUsed == false)
-        {
-            StartAttack(attacks[2]);
-            return;
-        }
+        //else if (input.GetExplosionAttack() && attacks[1].IsBeingUsed == false)
+        //{
+        //    StartAttack(attacks[1]);
+        //    return;
+        //}
+        //else if (input.GetTeleportAttack() && attacks[2].IsBeingUsed == false)
+        //{
+        //    StartAttack(attacks[2]);
+        //    return;
+        //}
     }
 
     private void StartAttack(Attack activatedAttack)
