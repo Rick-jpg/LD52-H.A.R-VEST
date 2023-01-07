@@ -841,7 +841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 3
   direction: 1
-  jumpPower: 10
+  jumpPower: 5
   isJumping: 0
   jumpPressedRemember: 0
   jumpPressedRememberTime: 0.2
@@ -853,7 +853,7 @@ MonoBehaviour:
   canDash: 1
   isDashing: 0
   gravityMultiplier: 0
-  holdJumpGravityMultiplier: 3
+  holdJumpGravityMultiplier: 1.5
   tapJumpGravityMultiplier: 0
   velocity: 0
 --- !u!1 &2104570547

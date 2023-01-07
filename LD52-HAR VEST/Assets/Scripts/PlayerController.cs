@@ -150,6 +150,8 @@ public class PlayerController : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        float savedVelocity = velocity;
+        velocity = 0;
         gravityMultiplier = 0;
 
         float startTIme = Time.time;
@@ -160,6 +162,8 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         isDashing = false;
+        velocity = savedVelocity;
+        gravityMultiplier = 3f;
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
        
