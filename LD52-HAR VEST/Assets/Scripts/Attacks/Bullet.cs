@@ -7,10 +7,13 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float speed;
     private int bulletDirection;
+    [SerializeField]
+    private float spawnTime = 6f;
+    private float spawnTimer;
     Vector3 movement;
-    private void Update()
+    private void OnEnable()
     {
-        if(this.bulletDirection == 1)
+        if (this.bulletDirection == 1)
         {
             movement = Vector3.right;
         }
@@ -18,7 +21,16 @@ public class Bullet : MonoBehaviour
         {
             movement = Vector3.left;
         }
+    }
+    private void Update()
+    {
+        if(spawnTimer >= spawnTime)
+        {
+            spawnTimer = 0;
+            Destroy(this.gameObject);
+        }
         transform.Translate(movement * speed * Time.deltaTime);
+        spawnTimer += Time.deltaTime;
     }
 
     public int BulletDirection{ get; set; }
