@@ -8,8 +8,30 @@ public class EnergyEndMachine : MonoBehaviour
     private Door door;
     PlayerController playerController;
     private bool isActivated;
+    private bool hasCollected;
     public delegate void CompleteLevel();
     public static CompleteLevel OnCompleteLevel;
+    public delegate void ToggleReset(bool value);
+    public static event ToggleReset OnToggleReset;
+
+    [SerializeField]
+    private BoxCollider invisibleCollider;
+
+    [Header("Closin in")]
+    [SerializeField]
+    private float difference;
+    public delegate void ShortenBorder(float difference);
+    public static event ShortenBorder OnShortenBorder;
+
+    private void Start()
+    {
+        ToggleInvisibleCollider(false);
+    }
+
+    private void ToggleInvisibleCollider(bool value)
+    {
+        invisibleCollider.enabled = value;
+    }
 
     [SerializeField]
     ParticleSystem electricParticle;
@@ -30,7 +52,11 @@ public class EnergyEndMachine : MonoBehaviour
     {
         playerController.ToggleInput(false);
         playerController.SetCanMove(false);
-        OnCompleteLevel?.Invoke();
+        if (!hasCollected)
+        {
+            OnCompleteLevel?.Invoke();
+            hasCollected = true;
+        }
         yield return new WaitForSeconds(0.5f);
         electricParticle.transform.position = playerController.transform.position;
         electricParticle.Play();
@@ -43,5 +69,17 @@ public class EnergyEndMachine : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         playerController.SetCanMove(true);
         playerController.ToggleInput(true);
+        ToggleInvisibleCollider(true);
+        OnShortenBorder?.Invoke(difference);
+        OnToggleReset?.Invoke(false);
     }
+
+    public void ResetMachine()
+    {
+        isActivated = false;
+        door.PlayDoorAnimation(false);
+        ToggleInvisibleCollider(false);
+
+    }
+
 }

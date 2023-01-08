@@ -6,6 +6,8 @@ public class CheckPoint : MonoBehaviour
 {
 
     private Respawn respawn;
+    [SerializeField]
+    private GameObject spawnPoint;
 
     void Awake()
     {
@@ -14,9 +16,9 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.GetComponent<PlayerController>() != null)
         {
-            respawn.respawnPoint = this.gameObject;
+            respawn.SetRespawnPoint(spawnPoint);
         }
     }
 
