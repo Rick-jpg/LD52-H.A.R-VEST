@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(LineRenderer))]
 public class Laser : MonoBehaviour, IActivatable
 {
     public delegate void PlayerHit();

@@ -200,8 +200,15 @@ public class PlayerController : MonoBehaviour
     }
 
     public void SetCanMove(bool value)
-    {
-        canMove = value;
+    {
+        canMove = value;        if (value) return;        DisableAnimation();
+    }
+
+    void DisableAnimation()
+    {
+        isWalking = false;
+        isDashing = false;
+        velocity = 0f;
     }
 
     void SetMaximumEnergy()
@@ -254,6 +261,7 @@ public class PlayerController : MonoBehaviour
     public void ToggleInput(bool inputStatus)
     {
         canHandleInput = inputStatus;
+
     }
 
     private void DashHandling()
