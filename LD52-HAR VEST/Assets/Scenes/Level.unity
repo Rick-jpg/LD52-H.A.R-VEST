@@ -1287,6 +1287,11 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 1824334780}
+    - target: {fileID: 4072160346869960332, guid: 0f6fec02052c223409b59a272f9399f6,
+        type: 3}
+      propertyPath: boundsMax.x
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4072160347337757178, guid: 0f6fec02052c223409b59a272f9399f6,
         type: 3}
       propertyPath: door
@@ -1508,6 +1513,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObstacleManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040263887814184309, guid: a5a343fc099d55d4c9bdd2a55a46c90c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.034
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5a343fc099d55d4c9bdd2a55a46c90c, type: 3}

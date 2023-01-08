@@ -37,6 +37,8 @@ public class GameWinScreenManager : MonoBehaviour
     float maxTimeBonus = 2000;
     int finalScore;
 
+    string rank;
+
     private void Start()
     {
         // pause timer just in case
@@ -94,9 +96,44 @@ public class GameWinScreenManager : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         fade.Play("FadeBlackIn");
+        ScoringManager.Instance.ResetValues();
+        AudioManager.Instance.StopMusic(2.5f);
         yield return new WaitForSeconds(1.5f);
 
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void StartMusic()
+    {
+        switch (rank)
+        {
+            case "S":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 3));
+                break;
+
+            case "A":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 4));
+                break;
+
+            case "B":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 5));
+                break;
+
+            case "C":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 6));
+                break;
+
+            case "D":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 7));
+                break;
+
+            case "F":
+                AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 8));
+                break;
+
+            default:
+                break;
+        }
     }
 
     public string CalculateRank()
@@ -113,7 +150,7 @@ public class GameWinScreenManager : MonoBehaviour
 
         finalScore = timeBonus + ScoringManager.Instance.GetScore();
 
-        string rank = "B";
+        rank = "B";
 
         for (int i = 0; i < ranks.Length; i++)
         {
