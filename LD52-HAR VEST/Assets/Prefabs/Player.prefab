@@ -260,6 +260,7 @@ MonoBehaviour:
   maxEnergyCapacity: 5
   currentEnergy: 0
   energyBar: {fileID: 0}
+  deathTime: 4
 --- !u!114 &5923553179590039056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,11 +662,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 5923553179590039060}
-    - target: {fileID: 4793707643602938723, guid: 029eb7d5587c84a4abf0ef7fd1dcf944,
-        type: 3}
-      propertyPath: solids.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
     - target: {fileID: 4793707643602938723, guid: 029eb7d5587c84a4abf0ef7fd1dcf944,
         type: 3}
       propertyPath: teleportPoint

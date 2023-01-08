@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using System.Threading;
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
-{
+{
+    public delegate void ResetLevel();
+    public static ResetLevel onResetLevel;
     InputHandler inputHandler;
     CharacterController characterController;
     AttackHandler attackHandler;
@@ -64,26 +68,31 @@ public class PlayerController : MonoBehaviour
 
     bool canHandleInput;
 
-    [Header("Energy")]
+    [Header("Energy")]
     [SerializeField]
     private int maxEnergyCapacity = 5;
     [SerializeField]
     private int currentEnergy;
-    int energyExtraAdded = 2;
-
+    int energyExtraAdded = 2;
+
+    [SerializeField]
+    Energybar energyBar;
+    [Header("Death")]
     [SerializeField]
-    Energybar energyBar;
-
+    private float deathTime = 4f;
+
     private void OnEnable()
     {
         EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
         Attack.OnEnergyUsed += DecreaseEnergy;
+        Laser.OnPlayerHit += Death;
     }
 
     private void OnDisable()
     {
         EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
         Attack.OnEnergyUsed -= DecreaseEnergy;
+        Laser.OnPlayerHit -= Death;
     }
 
     void Start()
@@ -117,7 +126,7 @@ public class PlayerController : MonoBehaviour
                MovementHandling();
                JumpingHandling();
 
-                if (isGrounded())
+                if (isGrounded())
                     if (canDash == false) canDash = true;
             }
         }
@@ -149,17 +158,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
-        }
+        }
     }
 
-    public void EnableGravity(bool enable)
-    {
-        doGravity = enable;
-
-        if (!enable)
-        {
-            gravityMultiplier = 3f;
-        }
+    public void EnableGravity(bool enable)
+    {
+        doGravity = enable;
+
+        if (!enable)
+        {
+            gravityMultiplier = 3f;
+        }
     }
 
     private void MovementHandling()
@@ -172,13 +181,13 @@ public class PlayerController : MonoBehaviour
 
         movement = new Vector3(xMovement, velocity, 0) * Time.deltaTime;
 
-        if (xMovement > 0.01f || xMovement < -0.01f)
-        {
-            isWalking = true;
+        if (xMovement > 0.01f || xMovement < -0.01f)
+        {
+            isWalking = true;
         }
-        else
-        {
-            isWalking = false;
+        else
+        {
+            isWalking = false;
         }
 
         characterController.Move(movement);
@@ -190,9 +199,16 @@ public class PlayerController : MonoBehaviour
         direction = Convert.ToInt32(movement);
     }
 
-    public void SetCanMove(bool value)
+    public void SetCanMove(bool value)
     {
-        canMove = value;
+        canMove = value;        if (value) return;        DisableAnimation();
+    }
+
+    void DisableAnimation()
+    {
+        isWalking = false;
+        isDashing = false;
+        velocity = 0f;
     }
 
     void SetMaximumEnergy()
@@ -202,14 +218,14 @@ public class PlayerController : MonoBehaviour
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
     }
 
-    public int GetMaximumEnergy()
-    {
-        return maxEnergyCapacity;
+    public int GetMaximumEnergy()
+    {
+        return maxEnergyCapacity;
     }
 
-    public int GetCurrentEnergy()
-    {
-        return currentEnergy;
+    public int GetCurrentEnergy()
+    {
+        return currentEnergy;
     }
 
     void DecreaseEnergy(int amount)
@@ -245,6 +261,7 @@ public class PlayerController : MonoBehaviour
     public void ToggleInput(bool inputStatus)
     {
         canHandleInput = inputStatus;
+
     }
 
     private void DashHandling()
@@ -277,17 +294,33 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-    void UpdateAnim()
+    private void Death()
     {
-        anim.SetBool("Grounded", isGrounded());
-        anim.SetBool("Running", isWalking);
+        StartCoroutine(DeathSequence());
+    }
 
-        anim.SetBool("Airdashing", isDashing);
-        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
-        anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
-        anim.SetBool("Teleporting", attackHandler.GetAttackisBeingUsed(2));
+    private IEnumerator DeathSequence()
+    {
+        EnableGravity(false);
+        ToggleInput(false);
+        SetCanMove(false);
+        //Play Death Animation
+        yield return new WaitForSeconds(deathTime);
+        onResetLevel?.Invoke();
+        yield return new WaitForSeconds(1f);
+    }
 
-        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
+    void UpdateAnim()
+    {
+        anim.SetBool("Grounded", isGrounded());
+        anim.SetBool("Running", isWalking);
+
+        anim.SetBool("Airdashing", isDashing);
+        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
+        anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
+        anim.SetBool("Teleporting", attackHandler.GetAttackisBeingUsed(2));
+
+        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
     }
 
     public int Direction { get { return direction; } }

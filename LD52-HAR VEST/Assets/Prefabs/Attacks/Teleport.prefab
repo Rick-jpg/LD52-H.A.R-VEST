@@ -49,6 +49,6 @@ MonoBehaviour:
   restoreTime: 0.2
   solids:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2112
   teleportPoint: {fileID: 0}
   player: {fileID: 0}

@@ -32,9 +32,6 @@ public class LightningShot : Attack
         for (int i = 0; i < 2; i++)
         {
             Bullet newbullet = Instantiate(bulletPrefab, bulletSpawnPoints[i].position, transform.rotation);
-            newbullet.Horizontal = false;
-            newbullet.WallPhase = true;
-
             if (i == 0)
             {
                 newbullet.BulletDirection = 1;
