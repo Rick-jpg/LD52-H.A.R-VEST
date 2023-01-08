@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioHolder))]
@@ -120,10 +122,11 @@ public class AudioManager : Singleton<AudioManager>
     /// Plays a randomly selected sound from specified array
     /// </summary>
     /// <param name="range"></param>
-    public void PlayRandomSound(AudioSource[] range)
+    public void PlayRandomSound(int arrayNumber, int rangeMin, int rangeMax)
     {
-        int random = Random.Range(0, range.Length);
-        range[random].Play();
+        int random = UnityEngine.Random.Range(rangeMin, rangeMax +1);
+        Debug.Log(random);
+        GetSound(arrayNumber, random).Play();
     }
 
     // gets currently playing track
