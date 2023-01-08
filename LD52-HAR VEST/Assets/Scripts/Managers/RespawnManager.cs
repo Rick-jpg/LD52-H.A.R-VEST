@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RespawnManager : MonoBehaviour
 {
+    bool canReset = true;
     public delegate void ResetLevel();
     public static event ResetLevel onResetLevel;
     bool buttonPressed = false;
@@ -13,10 +14,13 @@ public class RespawnManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.onResetLevel += ResetPlayerPosition;
+        EnergyEndMachine.OnToggleReset += ToggleResetting;
+        CameraArea.OnToggleReset += ToggleResetting;
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (!canReset) return;
+        if (Input.GetButton("Reset Level"))
         {
             buttonPressed = true;
             Debug.Log("button is pressed");
@@ -32,6 +36,7 @@ public class RespawnManager : MonoBehaviour
 
                 {
                     ResetPlayerPosition();
+                    AudioManager.Instance.PlaySound(1, 5);
                     Debug.Log("button pressed");
                 }
             }
@@ -44,8 +49,15 @@ public class RespawnManager : MonoBehaviour
         Debug.Log("Resetting");
     }
 
+    public void ToggleResetting(bool value)
+    {
+        canReset = value;
+    }
+
     private void OnDisable()
     {
         PlayerController.onResetLevel -= ResetPlayerPosition;
+        EnergyEndMachine.OnToggleReset -= ToggleResetting;
+        CameraArea.OnToggleReset -= ToggleResetting;
     }
 }

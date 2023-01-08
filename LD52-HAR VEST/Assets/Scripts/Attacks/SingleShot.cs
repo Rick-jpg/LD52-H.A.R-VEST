@@ -16,6 +16,7 @@ public class SingleShot : Attack
     {
        isBeingUsed = true;
        ReduceEnergy();
+        AudioManager.Instance.PlaySound(1, 7);
         StartCoroutine(AttackTime(startupTime, restoreTime));
     }
 
@@ -26,6 +27,7 @@ public class SingleShot : Attack
         Bullet newbullet = Instantiate(bulletPrefab, bulletSpawn.position, transform.rotation);
         newbullet.BulletDirection = attackDirection;
         newbullet.Speed = bulletSpeed;
+        AudioManager.Instance.PlaySound(1, 9);
 
         yield return new WaitForSeconds(restoreTime);
 

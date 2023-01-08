@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(BoxCollider))]
 public class TimedSwitch : MonoBehaviour, IHittable
 {
     bool isActivated;
@@ -15,6 +16,21 @@ public class TimedSwitch : MonoBehaviour, IHittable
     private float amountOfTime;
     private float timer = 0;
 
+    [Header("Materials")]
+    [SerializeField]
+    Material deactivated;
+    [SerializeField]
+    Material activated;
+
+    Renderer renderer;
+    ParticleSystem particleSystem;
+
+    private void Start()
+    {
+        renderer = GetComponent<Renderer>();
+        particleSystem = GetComponentInChildren<ParticleSystem>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -26,19 +42,24 @@ public class TimedSwitch : MonoBehaviour, IHittable
     {
         if (other.GetComponent<Bullet>() != null || !isActivated)
         {
+            AudioManager.Instance.PlaySound(2, 4);
             Hit();
         }
     }
 
     public void Hit()
     {
+        ChangeMaterial(activated);
         isActivated = true;
         OnActivated.Invoke();
+        particleSystem.Play();
     }
 
     public void Reset()
     {
-        isActivated=false;
+        particleSystem.Stop();
+        ChangeMaterial(deactivated);
+        isActivated =false;
         OnTimeOver.Invoke();
         timer = 0;
     }
@@ -50,5 +71,10 @@ public class TimedSwitch : MonoBehaviour, IHittable
         {
             Reset();
         }
+    }
+
+    private void ChangeMaterial(Material mat)
+    {
+        renderer.material = mat;
     }
 }

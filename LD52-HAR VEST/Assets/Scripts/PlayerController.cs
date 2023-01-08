@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     private float groundedRemember = 0;
     [SerializeField]
     private float groundRememberTime = 0.2f;
+    bool hasJumped;
 
     [Header("Dashing")]
     [SerializeField]
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
         EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
         Attack.OnEnergyUsed += DecreaseEnergy;
         Laser.OnPlayerHit += Death;
+        RespawnManager.onResetLevel += ResetEnergy;
     }
 
     private void OnDisable()
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
         EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
         Attack.OnEnergyUsed -= DecreaseEnergy;
         Laser.OnPlayerHit -= Death;
+        RespawnManager.onResetLevel -= ResetEnergy;
     }
 
     void Start()
@@ -126,8 +129,18 @@ public class PlayerController : MonoBehaviour
                MovementHandling();
                JumpingHandling();
 
-                if (isGrounded())
+                if (isGrounded())
                     if (canDash == false) canDash = true;
+            }
+
+            if (hasJumped && velocity < -0.01f)
+            {
+                if (isGrounded())
+                {
+                    Debug.Log("Landed");
+                    hasJumped = false;
+                    AudioManager.Instance.PlayRandomSound(1, 2, 4);
+                }
             }
         }
 
@@ -228,6 +241,12 @@ public class PlayerController : MonoBehaviour
         return currentEnergy;
     }
 
+    void ResetEnergy()
+    {
+        currentEnergy = maxEnergyCapacity;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+    }
+
     void DecreaseEnergy(int amount)
     {
         int difference = currentEnergy - amount;
@@ -249,6 +268,8 @@ public class PlayerController : MonoBehaviour
         jumpInput = inputHandler.GetJumpDown();
         if (!jumpInput) return;
         if (!isGrounded()) return;
+        AudioManager.Instance.PlaySound(1, 1);
+        hasJumped = true;
         jumpPressedRemember = jumpPressedRememberTime;
         velocity += jumpPower;
     }
@@ -269,6 +290,7 @@ public class PlayerController : MonoBehaviour
         dashInput = inputHandler.GetJumpDown();
         if (dashInput && canMove && canDash && !isGrounded())
         {
+            AudioManager.Instance.PlaySound(1, 0);
             StartCoroutine(Dash());
         }
     }

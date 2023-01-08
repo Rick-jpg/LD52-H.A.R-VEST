@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioHolder : MonoBehaviour 
+public class AudioHolder : MonoBehaviour
 {
     [Header("Music Tracks")]
     [SerializeField]
     AudioSource[] music;
 
-    [Header("Sound Effects")]
+    [Header("Player Sound Effects")]
     [SerializeField]
     AudioSource[] playerSFX;
+
+    [Header("Object Sound Effects")]
     [SerializeField]
     AudioSource[] objectSFX;
+
+    [Header("Menu Sound Effects")]
     [SerializeField]
     AudioSource[] menuSFX;
 

@@ -15,6 +15,7 @@ public class TeleportAttack : Attack
     public override void DoAttack()
     {
         isBeingUsed = true;
+        AudioManager.Instance.PlaySound(1, 7);
         StartCoroutine(AttackTime(startupTime, restoreTime));
     }
 
@@ -36,12 +37,14 @@ public class TeleportAttack : Attack
         if (canTeleport)
         {
             ReduceEnergy();
+            AudioManager.Instance.PlaySound(1, 10);
             Vector3 newPosition = teleportPoint.transform.position;
             player.transform.position = newPosition;
         }
         // if it is colliding, don't teleport and display feedback
         else
         {
+            AudioManager.Instance.PlaySound(1, 11);
             Debug.Log("Cannot teleport");
         }
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class BreakableBlock : MonoBehaviour, IHittable
 {
     bool hasBeenHit;
@@ -15,6 +16,7 @@ public class BreakableBlock : MonoBehaviour, IHittable
     public void Hit()
     {
         hasBeenHit = true;
+        AudioManager.Instance.PlaySound(2, 0);
         this.gameObject.SetActive(false);
     }
 
