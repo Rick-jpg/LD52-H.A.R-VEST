@@ -21,6 +21,9 @@ public class ScoringManager : Singleton<ScoringManager>
     {
         if (ScoringManager.Instance != this)
             Destroy(gameObject);
+
+
+        timePlaying = TimeSpan.FromSeconds(gameTimer);
     }
 
     // Update is called once per frame
