@@ -207,7 +207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
@@ -397,7 +397,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
@@ -694,7 +694,7 @@ Transform:
   m_Children:
   - {fileID: 1445600918}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &803250433
 GameObject:
@@ -741,6 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc673154be1054ab0769607e75c717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  door: {fileID: 0}
   boundsMin: {x: 0, y: 0}
   boundsMax: {x: 9.88, y: 0}
 --- !u!65 &803250436
@@ -803,7 +804,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &999987546
 GameObject:
@@ -850,6 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94bc673154be1054ab0769607e75c717, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  door: {fileID: 0}
   boundsMin: {x: 0, y: 0}
   boundsMax: {x: 3.35, y: 0}
 --- !u!65 &999987549
@@ -1115,7 +1117,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396729985
 GameObject:
@@ -1148,7 +1150,7 @@ Transform:
   - {fileID: 999987547}
   - {fileID: 803250434}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1402636703
 GameObject:
@@ -1356,7 +1358,7 @@ PrefabInstance:
     - target: {fileID: 5923553179590039059, guid: 523f3061fa136a14398ac2ccb761f9ea,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5923553179590039059, guid: 523f3061fa136a14398ac2ccb761f9ea,
         type: 3}
@@ -1446,7 +1448,7 @@ PrefabInstance:
     - target: {fileID: 2969510635264556444, guid: 335b2683399a21c438d82741f7badc9b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2969510635264556444, guid: 335b2683399a21c438d82741f7badc9b,
         type: 3}
