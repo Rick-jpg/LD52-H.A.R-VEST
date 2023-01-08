@@ -16,8 +16,8 @@ TagManager:
   - Player
   - Ignore
   - Projectile
-  - 
-  - 
+  - Interactables
+  - NoTeleport
   - 
   - 
   - 

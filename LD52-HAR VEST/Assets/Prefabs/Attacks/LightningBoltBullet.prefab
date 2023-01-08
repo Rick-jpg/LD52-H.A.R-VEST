@@ -128,5 +128,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  wallPhase: 1
   spawnTime: 4
+  collidedLayers: 0a000000
