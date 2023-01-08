@@ -2,11 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using System.Threading;
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
-{
+{
+    public delegate void ResetLevel();
+    public static ResetLevel onResetLevel;
     InputHandler inputHandler;
     CharacterController characterController;
     AttackHandler attackHandler;
@@ -64,16 +68,16 @@ public class PlayerController : MonoBehaviour
 
     bool canHandleInput;
 
-    [Header("Energy")]
+    [Header("Energy")]
     [SerializeField]
     private int maxEnergyCapacity = 5;
     [SerializeField]
     private int currentEnergy;
-    int energyExtraAdded = 2;
-
-    [SerializeField]
-    Energybar energyBar;
-
+    int energyExtraAdded = 2;
+
+    [SerializeField]
+    Energybar energyBar;
+
     private void OnEnable()
     {
         EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
@@ -117,7 +121,7 @@ public class PlayerController : MonoBehaviour
                MovementHandling();
                JumpingHandling();
 
-                if (isGrounded())
+                if (isGrounded())
                     if (canDash == false) canDash = true;
             }
         }
@@ -149,17 +153,17 @@ public class PlayerController : MonoBehaviour
         else
         {
             velocity += GRAVITY * gravityMultiplier * Time.deltaTime;
-        }
+        }
     }
 
-    public void EnableGravity(bool enable)
-    {
-        doGravity = enable;
-
-        if (!enable)
-        {
-            gravityMultiplier = 3f;
-        }
+    public void EnableGravity(bool enable)
+    {
+        doGravity = enable;
+
+        if (!enable)
+        {
+            gravityMultiplier = 3f;
+        }
     }
 
     private void MovementHandling()
@@ -172,13 +176,13 @@ public class PlayerController : MonoBehaviour
 
         movement = new Vector3(xMovement, velocity, 0) * Time.deltaTime;
 
-        if (xMovement > 0.01f || xMovement < -0.01f)
-        {
-            isWalking = true;
+        if (xMovement > 0.01f || xMovement < -0.01f)
+        {
+            isWalking = true;
         }
-        else
-        {
-            isWalking = false;
+        else
+        {
+            isWalking = false;
         }
 
         characterController.Move(movement);
@@ -190,9 +194,9 @@ public class PlayerController : MonoBehaviour
         direction = Convert.ToInt32(movement);
     }
 
-    public void SetCanMove(bool value)
-    {
-        canMove = value;
+    public void SetCanMove(bool value)
+    {
+        canMove = value;
     }
 
     void SetMaximumEnergy()
@@ -202,14 +206,14 @@ public class PlayerController : MonoBehaviour
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
     }
 
-    public int GetMaximumEnergy()
-    {
-        return maxEnergyCapacity;
+    public int GetMaximumEnergy()
+    {
+        return maxEnergyCapacity;
     }
 
-    public int GetCurrentEnergy()
-    {
-        return currentEnergy;
+    public int GetCurrentEnergy()
+    {
+        return currentEnergy;
     }
 
     void DecreaseEnergy(int amount)
@@ -276,18 +280,18 @@ public class PlayerController : MonoBehaviour
         gravityMultiplier = 3f;
         isDashing = false;
     }
-
-    void UpdateAnim()
-    {
-        anim.SetBool("Grounded", isGrounded());
-        anim.SetBool("Running", isWalking);
-
-        anim.SetBool("Airdashing", isDashing);
-        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
-        anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
-        anim.SetBool("Teleporting", attackHandler.GetAttackisBeingUsed(2));
-
-        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
+   
+    void UpdateAnim()
+    {
+        anim.SetBool("Grounded", isGrounded());
+        anim.SetBool("Running", isWalking);
+
+        anim.SetBool("Airdashing", isDashing);
+        anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
+        anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
+        anim.SetBool("Teleporting", attackHandler.GetAttackisBeingUsed(2));
+
+        anim.SetFloat("VerticalVelocity", characterController.velocity.y);
     }
 
     public int Direction { get { return direction; } }
