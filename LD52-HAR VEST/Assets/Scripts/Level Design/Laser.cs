@@ -32,7 +32,8 @@ public class Laser : MonoBehaviour, IActivatable
     {
         Debug.Log(other);
         if(other.GetComponent<PlayerController>() != null)
-        {     
+        {
+            AudioManager.Instance.PlaySound(2, 3);
             OnPlayerHit.Invoke();
         }
     }
