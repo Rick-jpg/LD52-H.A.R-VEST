@@ -42,6 +42,7 @@ public class TimedSwitch : MonoBehaviour, IHittable
     {
         if (other.GetComponent<Bullet>() != null || !isActivated)
         {
+            Debug.Log("Hit");
             Hit();
         }
     }

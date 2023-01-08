@@ -91,6 +91,16 @@ PrefabInstance:
       propertyPath: door
       value: 
       objectReference: {fileID: 2950152262207542972}
+    - target: {fileID: 8179875937857732269, guid: d8f0ed563f521434fbfabb6794c5f7f7,
+        type: 3}
+      propertyPath: difference
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8179875937857732269, guid: d8f0ed563f521434fbfabb6794c5f7f7,
+        type: 3}
+      propertyPath: invisibleCollider
+      value: 
+      objectReference: {fileID: 2470831623511961033}
     - target: {fileID: 8179875937857732271, guid: d8f0ed563f521434fbfabb6794c5f7f7,
         type: 3}
       propertyPath: m_RootOrder

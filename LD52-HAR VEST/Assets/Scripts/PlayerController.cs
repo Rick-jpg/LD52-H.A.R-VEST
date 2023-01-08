@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
         EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
         Attack.OnEnergyUsed += DecreaseEnergy;
         Laser.OnPlayerHit += Death;
+        RespawnManager.onResetLevel += ResetEnergy;
     }
 
     private void OnDisable()
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
         Attack.OnEnergyUsed -= DecreaseEnergy;
         Laser.OnPlayerHit -= Death;
+        RespawnManager.onResetLevel -= ResetEnergy;
     }
 
     void Start()
@@ -226,6 +228,12 @@ public class PlayerController : MonoBehaviour
     public int GetCurrentEnergy()
     {
         return currentEnergy;
+    }
+
+    void ResetEnergy()
+    {
+        currentEnergy = maxEnergyCapacity;
+        energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
     }
 
     void DecreaseEnergy(int amount)

@@ -11,6 +11,8 @@ public class EnergyEndMachine : MonoBehaviour
     private bool hasCollected;
     public delegate void CompleteLevel();
     public static CompleteLevel OnCompleteLevel;
+    public delegate void ToggleReset(bool value);
+    public static event ToggleReset OnToggleReset;
 
     [SerializeField]
     private BoxCollider invisibleCollider;
@@ -57,6 +59,7 @@ public class EnergyEndMachine : MonoBehaviour
         playerController.ToggleInput(true);
         ToggleInvisibleCollider(true);
         OnShortenBorder?.Invoke(difference);
+        OnToggleReset?.Invoke(false);
     }
 
     public void ResetMachine()
@@ -64,7 +67,6 @@ public class EnergyEndMachine : MonoBehaviour
         isActivated = false;
         door.PlayDoorAnimation(false);
         ToggleInvisibleCollider(false);
-        OnCompleteLevel?.Invoke();
 
     }
 
