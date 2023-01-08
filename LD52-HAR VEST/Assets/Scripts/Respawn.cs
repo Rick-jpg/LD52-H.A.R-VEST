@@ -11,17 +11,13 @@ public class Respawn : MonoBehaviour
     public GameObject respawnPoint;
     public PlayerController playerController;
 
-
-    void Update()
-    {
-        
-    }
-
     private void ResetLevel()
     {
         playerController.SetCanMove(false);
         player.transform.position = respawnPoint.transform.position;
         playerController.SetCanMove(true);
+        playerController.EnableGravity(true);
+        playerController.ToggleInput(true);
     }
 
     private void OnEnable()

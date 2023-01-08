@@ -9,6 +9,11 @@ public class RespawnManager : MonoBehaviour
     bool buttonPressed = false;
     float timer = 0;
     float duration = 0.5f;
+
+    private void OnEnable()
+    {
+        PlayerController.onResetLevel += ResetPlayerPosition;
+    }
     void Update()
     {
         if (Input.GetKey(KeyCode.R))
@@ -37,5 +42,10 @@ public class RespawnManager : MonoBehaviour
     {
         onResetLevel?.Invoke();
         Debug.Log("Resetting");
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.onResetLevel -= ResetPlayerPosition;
     }
 }
