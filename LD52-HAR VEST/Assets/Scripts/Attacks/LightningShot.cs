@@ -6,6 +6,8 @@ public class LightningShot : Attack
 {
     [SerializeField]
     private Bullet bulletPrefab;
+    [SerializeField]
+    float bulletSpeed;
 
     [SerializeField]
     Transform[] bulletSpawnPoints;
@@ -23,28 +25,32 @@ public class LightningShot : Attack
     IEnumerator AttackTime(float startupTime, float restoreTime)
     {
         player.SetCanMove(false);
+        player.EnableGravity(false);
 
         yield return new WaitForSeconds(startupTime);
 
         for (int i = 0; i < 2; i++)
         {
             Bullet newbullet = Instantiate(bulletPrefab, bulletSpawnPoints[i].position, transform.rotation);
+            newbullet.Horizontal = false;
+            newbullet.WallPhase = true;
 
             if (i == 0)
             {
-                newbullet.Horizontal = false;
-                newbullet.BulletDirection = attackDirection;
+                newbullet.BulletDirection = 1;
             }
             else if (i == 1)
             {
-                newbullet.Horizontal = false;
-                newbullet.BulletDirection = -attackDirection;
+                newbullet.BulletDirection = -1;
             }
+
+            newbullet.Speed = bulletSpeed;
         }
 
         yield return new WaitForSeconds(restoreTime);
 
         isBeingUsed = false;
         player.SetCanMove(true);
+        player.EnableGravity(true);
     }
 }

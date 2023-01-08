@@ -354,9 +354,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.91232914
+  m_TransitionDuration: 0.58527875
   m_TransitionOffset: 0
-  m_ExitTime: 0
+  m_ExitTime: 1.1834722e-10
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -474,6 +474,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: Airdashing
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LightningAttack
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5527559653370819383}
   m_Solo: 0
@@ -563,6 +566,9 @@ AnimatorStateTransition:
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Airdashing
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: LightningAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1049928186267342009}

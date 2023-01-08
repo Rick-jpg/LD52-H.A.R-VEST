@@ -20,22 +20,19 @@ public class AttackHandler : MonoBehaviour
 
     private void Update()
     {
-        if (!isAttacking)
+        for (int i = 0; i < attacks.Length; i++)
         {
-            for (int i = 0; i < attacks.Length; i++)
+            if (attacks[i].IsBeingUsed)
             {
-                if (attacks[i].IsBeingUsed)
-                {
-                    isAttacking = true;
-                    Debug.Log("attacking " + i);
-                    break;
-                }
-
-                isAttacking = false;
+                isAttacking = true;
+                Debug.Log("attacking " + i);
+                break;
             }
+
+            isAttacking = false;
         }
 
-        if(input.GetSingleAttack() && !isAttacking)
+        if (input.GetSingleAttack() && !isAttacking)
         {
             StartAttack(attacks[0]);
             return;
@@ -45,11 +42,11 @@ public class AttackHandler : MonoBehaviour
             StartAttack(attacks[1]);
             return;
         }
-        //else if (input.GetTeleportAttack() && !isAttacking)
-        //{
-        //    StartAttack(attacks[2]);
-        //    return;
-        //}
+        else if (input.GetTeleportAttack() && !isAttacking)
+        {
+            StartAttack(attacks[2]);
+            return;
+        }
     }
 
     private void StartAttack(Attack activatedAttack)

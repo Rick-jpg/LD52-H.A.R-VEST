@@ -36,7 +36,7 @@ public class InputHandler : MonoBehaviour
 
     public bool GetTeleportAttack()
     {
-        return true;
+        return Input.GetButtonDown("TeleportAttack");
     }
 
 }

@@ -7,11 +7,14 @@ public class Bullet : MonoBehaviour
     [SerializeField]
     private float speed;
     bool horizontal = true;
+    [SerializeField]
+    bool wallPhase = false;
     private int bulletDirection;
     [SerializeField]
     private float spawnTime = 4f;
     private float spawnTimer;
     Vector3 movement;
+
     private void Start()
     {
         if (bulletDirection == 1)
@@ -37,6 +40,7 @@ public class Bullet : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         if(spawnTimer >= spawnTime)
@@ -48,6 +52,27 @@ public class Bullet : MonoBehaviour
         spawnTimer += Time.deltaTime;
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        //No work
+        Debug.Log("1");
+        //if (!wallPhase)
+        //{
+        //    Debug.Log("2");
+        //    if (col.gameObject.layer == 2)
+        //    {
+        //        Debug.Log("3");
+        //        Destroy(this.gameObject);
+        //    }
+        //    else if (col.gameObject.layer == 7)
+        //    {
+        //        Destroy(this.gameObject);
+        //    }
+        //}
+    }
+
+    public float Speed { set { speed = value; } }
+    public bool WallPhase { set { wallPhase = value; } }
     public int BulletDirection { set { bulletDirection = value; } }
     public bool Horizontal { set { horizontal = value; } }
 }
