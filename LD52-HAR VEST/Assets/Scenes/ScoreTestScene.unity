@@ -819,6 +819,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114616307237570916, guid: cc551147d8304274986f0b20213d20b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1482985674}
+    - target: {fileID: 114616307237570916, guid: cc551147d8304274986f0b20213d20b6,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Play
+      objectReference: {fileID: 0}
     - target: {fileID: 114616307623557940, guid: cc551147d8304274986f0b20213d20b6,
         type: 3}
       propertyPath: m_RootOrder
@@ -942,6 +952,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1035182828 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 114616307237570918, guid: cc551147d8304274986f0b20213d20b6,
+    type: 3}
+  m_PrefabInstance: {fileID: 842485121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1156244266
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1035182828}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1402636706
@@ -1395,6 +1411,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445600917}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1482985674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5315935426893165116, guid: 1fe95b2687df2824fa7e0d94dc3d6da4,
+    type: 3}
+  m_PrefabInstance: {fileID: 1549972211}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed6d5865d1145c04088191ceca71cbf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1549972211
 PrefabInstance:
   m_ObjectHideFlags: 0
