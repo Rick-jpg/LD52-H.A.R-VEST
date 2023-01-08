@@ -20,6 +20,11 @@ public class Respawn : MonoBehaviour
         playerController.ToggleInput(true);
     }
 
+    public void SetRespawnPoint(GameObject newSpawnpoint)
+    {
+        respawnPoint = newSpawnpoint;
+    }
+
     private void OnEnable()
     {
         RespawnManager.onResetLevel += ResetLevel;

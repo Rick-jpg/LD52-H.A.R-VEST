@@ -15,6 +15,8 @@ public class CameraArea: MonoBehaviour
 
     public delegate void ChangeCameraArea(CameraArea area);
     public static event ChangeCameraArea OnChangeCameraArea;
+    public delegate void ToggleReset(bool value);
+    public static event ToggleReset OnToggleReset;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -36,5 +38,6 @@ public class CameraArea: MonoBehaviour
         yield return new WaitForSeconds(1f);
         playerController.SetCanMove(true);
         playerController.ToggleInput(true);
+        OnToggleReset?.Invoke(true);
     }
 }
