@@ -1474,6 +1474,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: f3d153ce6225a08409f8e3878841d675, type: 2}
     - {fileID: 11400000, guid: 1fc09d403cf7a0d45bcb3128a42bebb8, type: 2}
     - {fileID: 11400000, guid: cbf99efce091e3b4f9af8e6a0b37d131, type: 2}
+    - {fileID: 11400000, guid: 6085b121f65aa974dbf1650bd1a001d2, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -1530,6 +1531,20 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1068953226}
+          m_TargetAssemblyTypeName: GameWinScreenManager, Assembly-CSharp
+          m_MethodName: StartMusic
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1106128279
 GameObject:

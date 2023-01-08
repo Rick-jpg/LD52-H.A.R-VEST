@@ -13,6 +13,8 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField]
     AudioSource currentMusic;
 
+    private bool isFading;
+
     private void Awake()
     {
         // get Audio Holder reference
@@ -154,17 +156,26 @@ public class AudioManager : Singleton<AudioManager>
 
     IEnumerator FadeInSound(AudioSource sound, float duration)
     {
-        float currentTime = 0;
-        float goal = sound.volume;
-        sound.volume = 0;
-
-        while (currentTime < duration)
+        if (isFading)
         {
-            currentTime += Time.deltaTime;
-            sound.volume = Mathf.Lerp(0, goal, currentTime / duration);
-            yield return null;
+            yield break;
         }
+        else
+        {
+            isFading = true;
+            float currentTime = 0;
+            float goal = sound.volume;
+            sound.volume = 0;
 
+            while (currentTime < duration)
+            {
+                currentTime += Time.deltaTime;
+                sound.volume = Mathf.Lerp(0, goal, currentTime / duration);
+                yield return null;
+            }
+            Debug.Log("Ben");
+            isFading = false;
+        }
         yield break;
     }
 }

@@ -77,6 +77,7 @@ public class MenuManager : MonoBehaviour
         audioManager.StopMusic(2.5f);
         FadeIn();
         yield return new WaitForSeconds(4f);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0,1));
 
         SceneManager.LoadScene(sceneToLoad);
     }
@@ -189,6 +190,6 @@ public class MenuManager : MonoBehaviour
 
     public void PlayMusic()
     {
-        audioManager.StopPlayMusic(audioManager.GetSound(0, 0), 2.5f, 2f);
+        audioManager.PlayMusic(audioManager.GetSound(0, 0), 2.5f);
     }
 }

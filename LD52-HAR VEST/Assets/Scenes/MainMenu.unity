@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canClick: 0
-  sceneToLoad: TestLevel
+  sceneToLoad: Level
   fade: {fileID: 54313607}
   buttonGroup: {fileID: 418658659}
   creditsGroup: {fileID: 1806022355}
