@@ -42,11 +42,11 @@ public class AttackHandler : MonoBehaviour
             StartAttack(attacks[1]);
             return;
         }
-        //else if (input.GetTeleportAttack() && !isAttacking)
-        //{
-        //    StartAttack(attacks[2]);
-        //    return;
-        //}
+        else if (input.GetTeleportAttack() && !isAttacking)
+        {
+            StartAttack(attacks[2]);
+            return;
+        }
     }
 
     private void StartAttack(Attack activatedAttack)
