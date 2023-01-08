@@ -6,6 +6,8 @@ public class SingleShot : Attack
 {
     [SerializeField]
     private Bullet bulletPrefab;
+    [SerializeField]
+    float bulletSpeed;
 
     [SerializeField]
     Transform bulletSpawn;
@@ -23,6 +25,7 @@ public class SingleShot : Attack
 
         Bullet newbullet = Instantiate(bulletPrefab, bulletSpawn.position, transform.rotation);
         newbullet.BulletDirection = attackDirection;
+        newbullet.Speed = bulletSpeed;
 
         yield return new WaitForSeconds(restoreTime);
 

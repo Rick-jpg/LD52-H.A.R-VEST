@@ -250,7 +250,7 @@ public class PlayerController : MonoBehaviour
     private void DashHandling()
     {
         dashInput = inputHandler.GetJumpDown();
-        if (dashInput && canDash && !isGrounded())
+        if (dashInput && canMove && canDash && !isGrounded())
         {
             StartCoroutine(Dash());
         }
@@ -285,7 +285,7 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("Airdashing", isDashing);
         anim.SetBool("Shooting", attackHandler.GetAttackisBeingUsed(0));
         anim.SetBool("LightningAttack", attackHandler.GetAttackisBeingUsed(1));
-        //anim.SetBool("Teleporting", );
+        anim.SetBool("Teleporting", attackHandler.GetAttackisBeingUsed(2));
 
         anim.SetFloat("VerticalVelocity", characterController.velocity.y);
     }
