@@ -77,17 +77,22 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     Energybar energyBar;
+    [Header("Death")]
+    [SerializeField]
+    private float deathTime = 4f;
 
     private void OnEnable()
     {
         EnergyEndMachine.OnCompleteLevel += SetMaximumEnergy;
         Attack.OnEnergyUsed += DecreaseEnergy;
+        Laser.OnPlayerHit += Death;
     }
 
     private void OnDisable()
     {
         EnergyEndMachine.OnCompleteLevel -= SetMaximumEnergy;
         Attack.OnEnergyUsed -= DecreaseEnergy;
+        Laser.OnPlayerHit -= Death;
     }
 
     void Start()
@@ -280,7 +285,23 @@ public class PlayerController : MonoBehaviour
         gravityMultiplier = 3f;
         isDashing = false;
     }
-   
+
+    private void Death()
+    {
+        StartCoroutine(DeathSequence());
+    }
+
+    private IEnumerator DeathSequence()
+    {
+        EnableGravity(false);
+        ToggleInput(false);
+        SetCanMove(false);
+        //Play Death Animation
+        yield return new WaitForSeconds(deathTime);
+        onResetLevel?.Invoke();
+        yield return new WaitForSeconds(1f);
+    }
+
     void UpdateAnim()
     {
         anim.SetBool("Grounded", isGrounded());
