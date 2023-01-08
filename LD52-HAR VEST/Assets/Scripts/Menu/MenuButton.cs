@@ -33,7 +33,7 @@ public class MenuButton : MonoBehaviour
             currentPosition.anchoredPosition = new Vector2(Mathf.Lerp(currentPosition.anchoredPosition.x, originalPosition.x, 5 * Time.deltaTime), currentPosition.anchoredPosition.y);
             if (doOnce)
             {
-                //AudioManager.Instance.PlaySound();
+                AudioManager.Instance.PlaySound(3, 1);
                 doOnce = false;
             }
         }

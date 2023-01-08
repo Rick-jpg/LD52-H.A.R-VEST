@@ -28,7 +28,7 @@ public class AudioManager : Singleton<AudioManager>
             case 2:
                 return holder.GetObjectSFX()[index];
             case 3:
-                return holder.GetObjectSFX()[index];
+                return holder.GetMenuSFX()[index];
             default:
                 return null;
         } 
@@ -37,6 +37,11 @@ public class AudioManager : Singleton<AudioManager>
     public void PlaySound(AudioSource sound)
     {
         sound.Play();
+    }
+
+    public void PlaySound(int arrayNumber, int index)
+    {
+        GetSound(arrayNumber, index).Play();
     }
 
     public void StopSound(AudioSource sound)
