@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioHolder))]
@@ -28,7 +30,7 @@ public class AudioManager : Singleton<AudioManager>
             case 2:
                 return holder.GetObjectSFX()[index];
             case 3:
-                return holder.GetObjectSFX()[index];
+                return holder.GetMenuSFX()[index];
             default:
                 return null;
         } 
@@ -37,6 +39,11 @@ public class AudioManager : Singleton<AudioManager>
     public void PlaySound(AudioSource sound)
     {
         sound.Play();
+    }
+
+    public void PlaySound(int arrayNumber, int index)
+    {
+        GetSound(arrayNumber, index).Play();
     }
 
     public void StopSound(AudioSource sound)
@@ -115,10 +122,11 @@ public class AudioManager : Singleton<AudioManager>
     /// Plays a randomly selected sound from specified array
     /// </summary>
     /// <param name="range"></param>
-    public void PlayRandomSound(AudioSource[] range)
+    public void PlayRandomSound(int arrayNumber, int rangeMin, int rangeMax)
     {
-        int random = Random.Range(0, range.Length);
-        range[random].Play();
+        int random = UnityEngine.Random.Range(rangeMin, rangeMax +1);
+        Debug.Log(random);
+        GetSound(arrayNumber, random).Play();
     }
 
     // gets currently playing track

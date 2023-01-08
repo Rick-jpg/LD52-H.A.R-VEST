@@ -65,6 +65,7 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
             DisableButtons();
             StartCoroutine(LoadSceneSequence());
         }
@@ -85,6 +86,7 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
             DisableButtons();
             currentGroup = creditsGroup;
             StartCoroutine(PanelSequence(0.8f));
@@ -96,6 +98,7 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
             DisableButtons();
             currentGroup = storyGroup;
             Debug.Log(currentGroup);
@@ -128,6 +131,7 @@ public class MenuManager : MonoBehaviour
     public void ClosePanel()
     {
         Debug.Log("Panel Closed");
+        AudioManager.Instance.PlaySound(3, 1);
         StartCoroutine(ClosePanelSequence(currentGroup, .5f));
     }
 
@@ -156,6 +160,7 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
             DisableButtons();
             StartCoroutine(ExitSequence());
         }

@@ -18,6 +18,7 @@ public class LightningShot : Attack
     public override void DoAttack()
     {
         isBeingUsed = true;
+        AudioManager.Instance.PlaySound(1, 7);
         ReduceEnergy();
         StartCoroutine(AttackTime(startupTime, restoreTime));
     }
@@ -28,6 +29,8 @@ public class LightningShot : Attack
         player.EnableGravity(false);
 
         yield return new WaitForSeconds(startupTime);
+
+        AudioManager.Instance.PlaySound(1, 8);
 
         for (int i = 0; i < 2; i++)
         {
