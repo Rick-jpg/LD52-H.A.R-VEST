@@ -2,46 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public abstract class Bullet : MonoBehaviour
 {
     [SerializeField]
     private float speed;
-    bool horizontal = true;
-    [SerializeField]
-    bool wallPhase = false;
-    private int bulletDirection;
+    protected int bulletDirection;
     [SerializeField]
     private float spawnTime = 4f;
     private float spawnTimer;
-    Vector3 movement;
+    protected Vector3 movement;
 
-    private void Start()
+    [SerializeField]
+    [Tooltip("Insert the number of the layer that the bullet should collide with")]
+    int[] collidedLayers = new int[0];
+
+    public abstract void SetupDirection();
+    protected void Start()
     {
-        if (bulletDirection == 1)
-        {
-            if (horizontal)
-            {
-                movement = Vector3.right;
-            }
-            else
-            {
-                movement = Vector3.up;
-            }
-        }
-        else
-        {
-            if (horizontal)
-            {
-                movement = Vector3.left;
-            }
-            else
-            {
-                movement = Vector3.down;
-            }
-        }
+        SetupDirection();
     }
 
-    private void Update()
+    protected void Update()
     {
         if(spawnTimer >= spawnTime)
         {
@@ -54,25 +35,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider col)
     {
-        //No work
-        Debug.Log("1");
-        //if (!wallPhase)
-        //{
-        //    Debug.Log("2");
-        //    if (col.gameObject.layer == 2)
-        //    {
-        //        Debug.Log("3");
-        //        Destroy(this.gameObject);
-        //    }
-        //    else if (col.gameObject.layer == 7)
-        //    {
-        //        Destroy(this.gameObject);
-        //    }
-        //}
+        if (collidedLayers.Length == 0) return;
+        foreach (int i in collidedLayers)
+        {
+            if (col.gameObject.layer == i)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     public float Speed { set { speed = value; } }
-    public bool WallPhase { set { wallPhase = value; } }
     public int BulletDirection { set { bulletDirection = value; } }
-    public bool Horizontal { set { horizontal = value; } }
 }

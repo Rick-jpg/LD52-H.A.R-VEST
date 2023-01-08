@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 7934849113849070976}
   - component: {fileID: 2119098326972571305}
   - component: {fileID: 8118613086099894278}
-  - component: {fileID: 3496592780935271028}
+  - component: {fileID: 3985134325079360492}
+  - component: {fileID: 8494323424451339792}
   m_Layer: 9
-  m_Name: Sphere
+  m_Name: SingleShotBulet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +99,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3496592780935271028
+--- !u!114 &3985134325079360492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,8 +108,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1092359004494051995}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f6ffd97a904374cb4283d2855fd096, type: 3}
+  m_Script: {fileID: 11500000, guid: b4d6c78f2fba6274c95ee983b0273cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  spawnTime: 3
+  speed: 1
+  wallPhase: 0
+  spawnTime: 4
+  collidedLayers: 06000000
+--- !u!54 &8494323424451339792
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092359004494051995}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
