@@ -64,6 +64,7 @@ public class EnergyEndMachine : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         orb.SetActive(false);
         door.PlayDoorAnimation(true);
+        AudioManager.Instance.PlaySound(2, 2);
         yield return new WaitForSeconds(.5f);
         electricParticle.Stop();
         yield return new WaitForSeconds(.2f);
