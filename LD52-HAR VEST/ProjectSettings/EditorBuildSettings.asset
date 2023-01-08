@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Checkpoint test.unity
     guid: 17344ea41a2c9664a8169266d551861f
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 4cf2f8f366007c043971047120619a59
   m_configObjects: {}
