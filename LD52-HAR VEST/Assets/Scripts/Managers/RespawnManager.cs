@@ -16,7 +16,7 @@ public class RespawnManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
+        if (Input.GetButton("Reset Level"))
         {
             buttonPressed = true;
             Debug.Log("button is pressed");
