@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,16 +10,39 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField]
     bool canClick;
+    bool canExitPanel;
 
     [SerializeField]
     string sceneToLoad;
 
     [SerializeField]
     Animator fade;
+    [SerializeField]
+    CanvasGroup buttonGroup;
+    [SerializeField]
+    CanvasGroup creditsGroup;
+    [SerializeField]
+    CanvasGroup storyGroup;
+
+    CanvasGroup currentGroup;
 
     private void Start()
     {
         audioManager = AudioManager.Instance;
+
+        creditsGroup.alpha= 0f;
+        storyGroup.alpha= 0f;
+    }
+
+    private void Update()
+    {
+        if (canExitPanel)
+        {
+            if (Input.anyKeyDown || Input.GetButtonDown("TeleportAttack") || Input.GetButtonDown("Jump"))
+            {
+                ClosePanel();
+            }
+        }
     }
 
     public void SetCanClick(bool value)
@@ -41,6 +65,8 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
+            DisableButtons();
             StartCoroutine(LoadSceneSequence());
         }
     }
@@ -60,13 +86,73 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
-            StartCoroutine(CreditsSequence());
+            AudioManager.Instance.PlaySound(3, 0);
+            DisableButtons();
+            currentGroup = creditsGroup;
+            StartCoroutine(PanelSequence(0.8f));
         }
     }
 
-    IEnumerator CreditsSequence()
+    public void ShowStory()
     {
+        if (canClick)
+        {
+            canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
+            DisableButtons();
+            currentGroup = storyGroup;
+            Debug.Log(currentGroup);
+            StartCoroutine(PanelSequence(0.8f));
+        }
+    }
+
+    IEnumerator PanelSequence(float duration)
+    {
+        currentGroup.blocksRaycasts = true;
+
         yield return new WaitForSeconds(.2f);
+
+        float currentTime = 0;
+        float start = 0;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            currentGroup.alpha = Mathf.Lerp(start, 1, currentTime / duration);
+            yield return null;
+        }
+        currentGroup.alpha = 1f;
+
+        Debug.Log("Panel Opened");
+        canExitPanel = true;
+        yield break;
+    }
+
+    public void ClosePanel()
+    {
+        Debug.Log("Panel Closed");
+        AudioManager.Instance.PlaySound(3, 1);
+        StartCoroutine(ClosePanelSequence(currentGroup, .5f));
+    }
+
+    IEnumerator ClosePanelSequence(CanvasGroup panel, float duration)
+    {
+        panel.blocksRaycasts = false;
+
+        float currentTime = 0;
+        float start = 1;
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            currentGroup.alpha = Mathf.Lerp(start, 0, currentTime / duration);
+            yield return null;
+        }
+
+        canExitPanel = false;
+        canClick = true;
+        EnableButtons();
+        yield break;
     }
 
     public void ExitGame()
@@ -74,6 +160,8 @@ public class MenuManager : MonoBehaviour
         if (canClick)
         {
             canClick = false;
+            AudioManager.Instance.PlaySound(3, 0);
+            DisableButtons();
             StartCoroutine(ExitSequence());
         }
     }
@@ -85,6 +173,18 @@ public class MenuManager : MonoBehaviour
         FadeIn();
         yield return new WaitForSeconds(1.5f);
         Application.Quit();
+    }
+
+    public void DisableButtons()
+    {
+        buttonGroup.alpha = 0;
+        buttonGroup.enabled = false;
+    }
+
+    public void EnableButtons()
+    {
+        buttonGroup.alpha = 1;
+        buttonGroup.enabled = true;
     }
 
     public void PlayMusic()

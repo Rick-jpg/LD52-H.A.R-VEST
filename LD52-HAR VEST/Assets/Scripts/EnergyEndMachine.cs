@@ -33,6 +33,11 @@ public class EnergyEndMachine : MonoBehaviour
         invisibleCollider.enabled = value;
     }
 
+    [SerializeField]
+    ParticleSystem electricParticle;
+    [SerializeField]
+    GameObject orb;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<PlayerController>() != null && isActivated == false)
@@ -52,9 +57,16 @@ public class EnergyEndMachine : MonoBehaviour
             OnCompleteLevel?.Invoke();
             hasCollected = true;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        electricParticle.transform.position = playerController.transform.position;
+        electricParticle.Play();
+        AudioManager.Instance.PlaySound(1, 6);
+        yield return new WaitForSeconds(1.5f);
+        orb.SetActive(false);
         door.PlayDoorAnimation(true);
         yield return new WaitForSeconds(.5f);
+        electricParticle.Stop();
+        yield return new WaitForSeconds(.2f);
         playerController.SetCanMove(true);
         playerController.ToggleInput(true);
         ToggleInvisibleCollider(true);

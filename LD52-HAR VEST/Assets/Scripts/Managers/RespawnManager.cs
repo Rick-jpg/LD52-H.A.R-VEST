@@ -36,6 +36,7 @@ public class RespawnManager : MonoBehaviour
 
                 {
                     ResetPlayerPosition();
+                    AudioManager.Instance.PlaySound(1, 5);
                     Debug.Log("button pressed");
                 }
             }
