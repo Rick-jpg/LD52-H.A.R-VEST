@@ -8,8 +8,28 @@ public class EnergyEndMachine : MonoBehaviour
     private Door door;
     PlayerController playerController;
     private bool isActivated;
+    private bool hasCollected;
     public delegate void CompleteLevel();
     public static CompleteLevel OnCompleteLevel;
+
+    [SerializeField]
+    private BoxCollider invisibleCollider;
+
+    [Header("Closin in")]
+    [SerializeField]
+    private float difference;
+    public delegate void ShortenBorder(float difference);
+    public static event ShortenBorder OnShortenBorder;
+
+    private void Start()
+    {
+        ToggleInvisibleCollider(false);
+    }
+
+    private void ToggleInvisibleCollider(bool value)
+    {
+        invisibleCollider.enabled = value;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -25,11 +45,27 @@ public class EnergyEndMachine : MonoBehaviour
     {
         playerController.ToggleInput(false);
         playerController.SetCanMove(false);
-        OnCompleteLevel?.Invoke();
+        if (!hasCollected)
+        {
+            OnCompleteLevel?.Invoke();
+            hasCollected = true;
+        }
         yield return new WaitForSeconds(1f);
         door.PlayDoorAnimation(true);
         yield return new WaitForSeconds(.5f);
         playerController.SetCanMove(true);
         playerController.ToggleInput(true);
+        ToggleInvisibleCollider(true);
+        OnShortenBorder?.Invoke(difference);
     }
+
+    public void ResetMachine()
+    {
+        isActivated = false;
+        door.PlayDoorAnimation(false);
+        ToggleInvisibleCollider(false);
+        OnCompleteLevel?.Invoke();
+
+    }
+
 }
