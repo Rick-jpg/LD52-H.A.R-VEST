@@ -52,6 +52,10 @@ public class EnergyEndMachine : MonoBehaviour
     {
         playerController.ToggleInput(false);
         playerController.SetCanMove(false);
+
+        // gain score based on remaining energy
+        ScoringManager.Instance.AddScore(playerController.GetCurrentEnergy() * 100);
+
         if (!hasCollected)
         {
             OnCompleteLevel?.Invoke();

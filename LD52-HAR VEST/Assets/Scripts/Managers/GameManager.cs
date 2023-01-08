@@ -10,6 +10,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI timerText;
 
+    private void OnEnable()
+    {
+        ScoringManager.OnUpdateScoreUI += UpdateScoreText;
+    }
+
+    private void OnDisable()
+    {
+        ScoringManager.OnUpdateScoreUI -= UpdateScoreText;
+    }
+
     private void Start()
     {
         ScoringManager.Instance.StartTimer();
@@ -20,9 +30,9 @@ public class GameManager : MonoBehaviour
         UpdateTimerText();
     }
 
-    public void UpdateScoreText()
+    public void UpdateScoreText(int value)
     {
-        scoreText.text = ScoringManager.Instance.GetScore().ToString();
+        scoreText.text = value.ToString();
     }
 
     public void UpdateTimerText()

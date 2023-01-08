@@ -13,6 +13,10 @@ public class ScoringManager : Singleton<ScoringManager>
     [Header("Score")]
     [SerializeField] int currentScore;
 
+
+    public delegate void UpdateScoreUI(int value);
+    public static event UpdateScoreUI OnUpdateScoreUI;
+
     private void Awake()
     {
         if (ScoringManager.Instance != this)
@@ -48,6 +52,7 @@ public class ScoringManager : Singleton<ScoringManager>
     public void AddScore(int value)
     {
         currentScore += value;
+        OnUpdateScoreUI?.Invoke(currentScore);
     }
 
     public int GetScore()
