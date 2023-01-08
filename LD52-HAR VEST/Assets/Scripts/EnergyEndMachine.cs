@@ -52,6 +52,10 @@ public class EnergyEndMachine : MonoBehaviour
     {
         playerController.ToggleInput(false);
         playerController.SetCanMove(false);
+
+        // gain score based on remaining energy
+        ScoringManager.Instance.AddScore(playerController.GetCurrentEnergy() * 100);
+
         if (!hasCollected)
         {
             OnCompleteLevel?.Invoke();
@@ -64,6 +68,7 @@ public class EnergyEndMachine : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         orb.SetActive(false);
         door.PlayDoorAnimation(true);
+        AudioManager.Instance.PlaySound(2, 2);
         yield return new WaitForSeconds(.5f);
         electricParticle.Stop();
         yield return new WaitForSeconds(.2f);

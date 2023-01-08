@@ -16,6 +16,7 @@ public class BreakableBlock : MonoBehaviour, IHittable
     public void Hit()
     {
         hasBeenHit = true;
+        AudioManager.Instance.PlaySound(2, 0);
         this.gameObject.SetActive(false);
     }
 

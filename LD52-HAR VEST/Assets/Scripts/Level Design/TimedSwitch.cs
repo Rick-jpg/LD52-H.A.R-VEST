@@ -42,7 +42,7 @@ public class TimedSwitch : MonoBehaviour, IHittable
     {
         if (other.GetComponent<Bullet>() != null || !isActivated)
         {
-            Debug.Log("Hit");
+            AudioManager.Instance.PlaySound(2, 4);
             Hit();
         }
     }
