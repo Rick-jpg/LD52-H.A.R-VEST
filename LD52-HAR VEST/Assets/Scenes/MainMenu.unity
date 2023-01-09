@@ -1471,7 +1471,7 @@ GameObject:
   - component: {fileID: 522827809}
   - component: {fileID: 522827808}
   m_Layer: 5
-  m_Name: StoryCanvas
+  m_Name: ControlsCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2721,16 +2721,27 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Jason was a scientist working for a brilliant tech laboratory developing
-    a new kind of advanced artifical intelligence that could be fully self-taught.
+  m_text: 'Arrow Keys / D-Pad / Control Stick - Move
 
-    One
-    day, when the newest prototype, the H.A.R. VEST, was nearly completed, he decided
-    to steal it and escape the lab for his own personal interests.
+    Z / South Button - Jump
+    / Air Dash
 
-    Now, Jason
-    and the H.A.R. VEST must work together to not get caught in the lab''s security
-    traps!'
+    X / West Button - Single Shot
+
+    (Shoots one bullet straight
+    ahead)
+
+    C / North Button - Lightning Shot
+
+    (Shoots two bullets that phase
+    through the ground)
+
+    V / East Button - Teleport
+
+    (Teleports a short distance
+    forward)
+
+    R / back Button - Reset Room'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de65922f14753a43a7a20e51dc1d8b4, type: 2}
   m_sharedMaterial: {fileID: -4053271013441109662, guid: 6de65922f14753a43a7a20e51dc1d8b4,
@@ -2758,8 +2769,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 47
-  m_fontSizeBase: 47
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2794,7 +2805,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -13.096191, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3895,7 +3906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORY
+  m_text: CONTROLS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de65922f14753a43a7a20e51dc1d8b4, type: 2}
   m_sharedMaterial: {fileID: -4053271013441109662, guid: 6de65922f14753a43a7a20e51dc1d8b4,
@@ -9745,7 +9756,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: STORY
+  m_text: CONTROLS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6de65922f14753a43a7a20e51dc1d8b4, type: 2}
   m_sharedMaterial: {fileID: -4053271013441109662, guid: 6de65922f14753a43a7a20e51dc1d8b4,
