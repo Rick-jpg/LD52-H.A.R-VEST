@@ -21,6 +21,22 @@ public class InputHandler : MonoBehaviour
 
     public bool GetDash()
     {
-        return Input.GetButtonDown("Fire1");
+        return Input.GetButtonDown("Dash");
     }
+
+    public bool GetSingleAttack()
+    {
+        return Input.GetButtonDown("SingleShot");
+    }
+
+    public bool GetLightningAttack()
+    {
+        return Input.GetButtonDown("LightningShot");
+    }
+
+    public bool GetTeleportAttack()
+    {
+        return Input.GetButtonDown("TeleportAttack");
+    }
+
 }
