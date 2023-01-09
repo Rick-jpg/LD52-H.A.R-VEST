@@ -1435,7 +1435,7 @@ PrefabInstance:
     - target: {fileID: 3894660010688669130, guid: 0f6fec02052c223409b59a272f9399f6,
         type: 3}
       propertyPath: boundsMin.x
-      value: -3.3
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3894660010688669133, guid: 0f6fec02052c223409b59a272f9399f6,
         type: 3}
@@ -1694,6 +1694,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3903350687899464255, guid: a5a343fc099d55d4c9bdd2a55a46c90c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.213
+      objectReference: {fileID: 0}
     - target: {fileID: 3903350688538800307, guid: a5a343fc099d55d4c9bdd2a55a46c90c,
         type: 3}
       propertyPath: m_LocalPosition.x
