@@ -127,7 +127,6 @@ public class AudioManager : Singleton<AudioManager>
     public void PlayRandomSound(int arrayNumber, int rangeMin, int rangeMax)
     {
         int random = UnityEngine.Random.Range(rangeMin, rangeMax +1);
-        Debug.Log(random);
         GetSound(arrayNumber, random).Play();
     }
 

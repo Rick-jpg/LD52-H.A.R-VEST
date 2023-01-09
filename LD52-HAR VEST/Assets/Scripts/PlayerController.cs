@@ -74,9 +74,10 @@ public class PlayerController : MonoBehaviour
     private int maxEnergyCapacity = 5;
     [SerializeField]
     private int currentEnergy;
+    [SerializeField]
+    ParticleSystem energyParticle;
     int energyExtraAdded = 2;
-
-    [SerializeField]
+    [SerializeField]
     Energybar energyBar;
     [Header("Death")]
     [SerializeField]
@@ -111,6 +112,7 @@ public class PlayerController : MonoBehaviour
         currentEnergy = maxEnergyCapacity;
 
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+        energyBar.UpdateEnergyBarFill(CalculateEnergyFill());
 
         // Set some variables to true
         canMove = true;
@@ -137,7 +139,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (isGrounded())
                 {
-                    Debug.Log("Landed");
                     hasJumped = false;
                     AudioManager.Instance.PlayRandomSound(1, 2, 4);
                 }
@@ -229,6 +230,7 @@ public class PlayerController : MonoBehaviour
         maxEnergyCapacity += energyExtraAdded;
         currentEnergy = maxEnergyCapacity;
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+        energyBar.UpdateEnergyBarFill(CalculateEnergyFill());
     }
 
     public int GetMaximumEnergy()
@@ -245,6 +247,7 @@ public class PlayerController : MonoBehaviour
     {
         currentEnergy = maxEnergyCapacity;
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+        energyBar.UpdateEnergyBarFill(CalculateEnergyFill());
     }
 
     void DecreaseEnergy(int amount)
@@ -253,6 +256,13 @@ public class PlayerController : MonoBehaviour
         if (difference < 0) difference = 0;
         currentEnergy = difference;
         energyBar.ChangeText(currentEnergy, maxEnergyCapacity);
+        energyBar.UpdateEnergyBarFill(CalculateEnergyFill());
+        energyParticle.Play();
+    }
+
+    float CalculateEnergyFill()
+    {
+        return (float)currentEnergy / (float)maxEnergyCapacity;
     }
 
     private void JumpingHandling()

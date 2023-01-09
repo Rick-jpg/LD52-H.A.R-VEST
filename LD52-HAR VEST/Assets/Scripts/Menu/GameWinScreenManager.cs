@@ -34,10 +34,10 @@ public class GameWinScreenManager : MonoBehaviour
     [SerializeField]
     float maxTimeThreshold = 180;
     [SerializeField]
-    float maxTimeBonus = 2000;
+    int maxTimeBonus = 1500;
     int finalScore;
 
-    string rank;
+    Rank finalRank;
 
     private void Start()
     {
@@ -52,7 +52,10 @@ public class GameWinScreenManager : MonoBehaviour
         scoreText.text = ScoringManager.Instance.GetScore().ToString();
 
         // Calc Rank
-        rankText.text = CalculateRank();
+        CalculateRank();
+
+        rankText.text = finalRank.GetLetter();
+        rankText.color = finalRank.GetRankColor();
     }
 
     private void Update()
@@ -105,7 +108,7 @@ public class GameWinScreenManager : MonoBehaviour
 
     public void StartMusic()
     {
-        switch (rank)
+        switch (finalRank.GetLetter())
         {
             case "S":
                 AudioManager.Instance.PlayMusic(AudioManager.Instance.GetSound(0, 3));
@@ -136,31 +139,33 @@ public class GameWinScreenManager : MonoBehaviour
         }
     }
 
-    public string CalculateRank()
+    public void CalculateRank()
     {
         float timeValue = (float)ScoringManager.Instance.GetTimer().TotalSeconds;
         int timeBonus = 0;
 
+        // If lower than min, give max bonus
+        if (timeValue <= minTimeThreshold)
+        {
+            timeBonus = maxTimeBonus;
+        }
         // Calculate time bonus if above theshold
-        if (timeValue < maxTimeThreshold)
+        else if (timeValue < maxTimeThreshold)
         {
             timeBonus = Convert.ToInt32(Remap(timeValue, minTimeThreshold, maxTimeThreshold, maxTimeBonus, 0));
-            Debug.Log(timeBonus);
         }
 
-        finalScore = timeBonus + ScoringManager.Instance.GetScore();
+        Debug.Log(timeBonus);
 
-        rank = "B";
+        finalScore = timeBonus + ScoringManager.Instance.GetScore();
 
         for (int i = 0; i < ranks.Length; i++)
         {
             if (finalScore >= ranks[i].GetThreshold())
             {
-                rank = ranks[i].GetLetter();
+                finalRank = ranks[i];
             }
         }
-
-        return rank;
     }
 
     public float Remap(float value, float from1, float to1, float from2, float to2)
