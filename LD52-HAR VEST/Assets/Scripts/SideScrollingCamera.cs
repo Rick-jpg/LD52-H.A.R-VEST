@@ -35,6 +35,16 @@ public class SideScrollingCamera : MonoBehaviour
         transform.position = Vector3.Lerp(startPos, targetPos, movementTime);
     }
 
+    public void ChangeOffset(Vector2 newOffset)
+    {
+        offsetPos = newOffset;
+    }
+
+    public void ChangeTarget(GameObject target)
+    {
+        lookAhead = target;
+    }
+
     private void ChangeArea(CameraArea newArea)
     {
         area = newArea;

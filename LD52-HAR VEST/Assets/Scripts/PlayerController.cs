@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         energyBar.UpdateEnergyBarFill(CalculateEnergyFill());
 
         // Set some variables to true
-        canMove = true;
+        //canMove = true;
         doGravity = true;
     }
 
