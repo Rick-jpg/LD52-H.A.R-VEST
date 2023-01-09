@@ -10,6 +10,8 @@ public class Rank
     string letter;
     [SerializeField]
     int threshold;
+    [SerializeField]
+    Color rankColor;
 
     public string GetLetter()
     {
@@ -19,5 +21,10 @@ public class Rank
     public int GetThreshold()
     {
         return threshold;
+    }
+
+    public Color GetRankColor()
+    {
+        return rankColor;
     }
 }

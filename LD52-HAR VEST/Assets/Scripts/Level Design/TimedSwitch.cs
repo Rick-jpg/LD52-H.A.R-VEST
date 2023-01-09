@@ -22,13 +22,13 @@ public class TimedSwitch : MonoBehaviour, IHittable
     [SerializeField]
     Material activated;
 
-    Renderer renderer;
-    ParticleSystem particleSystem;
+    Renderer meshRenderer;
+    ParticleSystem activationParticle;
 
     private void Start()
     {
-        renderer = GetComponent<Renderer>();
-        particleSystem = GetComponentInChildren<ParticleSystem>();
+        meshRenderer = GetComponent<Renderer>();
+        activationParticle = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -52,12 +52,12 @@ public class TimedSwitch : MonoBehaviour, IHittable
         ChangeMaterial(activated);
         isActivated = true;
         OnActivated.Invoke();
-        particleSystem.Play();
+        activationParticle.Play();
     }
 
     public void Reset()
     {
-        particleSystem.Stop();
+        activationParticle.Stop();
         ChangeMaterial(deactivated);
         isActivated =false;
         OnTimeOver.Invoke();
@@ -75,6 +75,6 @@ public class TimedSwitch : MonoBehaviour, IHittable
 
     private void ChangeMaterial(Material mat)
     {
-        renderer.material = mat;
+        meshRenderer.material = mat;
     }
 }
